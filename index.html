@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerald Kenosi — AI-Powered Legal & Digital Operations Specialist</title>
+<meta name="description" content="Gerald Kenosi combines legal knowledge, AI-assisted productivity systems, and digital development to help businesses improve efficiency and modernize operations.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Arial' font-weight='800' font-size='20' fill='%23C89B3C'%3EGK%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#070707;--surface:#111;--surface2:#1a1a1a;--gold:#C89B3C;--gold-dim:rgba(200,155,60,0.12);--gold-glow:rgba(200,155,60,0.2);--teal:#2A7A6B;--text:#f0f0f0;--muted:#888;--border:rgba(255,255,255,0.06);--glass:rgba(255,255,255,0.04);--radius:20px;--radius-sm:10px;--font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--max-w:1200px;--nav-h:72px}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h)}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+::selection{background:var(--gold);color:#070707}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+
+/* Custom Cursor */
+.cursor{position:fixed;width:24px;height:24px;border:2px solid var(--gold);border-radius:50%;pointer-events:none;z-index:99999;transition:transform .18s ease-out,opacity .25s,width .25s,height .25s,background .25s;transform:translate(-50%,-50%);mix-blend-mode:difference}
+.cursor.hover{width:48px;height:48px;background:rgba(200,155,60,0.08);border-color:#fff}
+.cursor.hidden{opacity:0}
+
+/* Preloader */
+.preloader{position:fixed;inset:0;z-index:99998;background:#070707;display:flex;align-items:center;justify-content:center;transition:opacity .8s cubic-bezier(.22,1,.36,1)}
+.preloader.fade{opacity:0;pointer-events:none}
+.preloader-text{font-size:clamp(1.8rem,4vw,3.2rem);font-weight:700;letter-spacing:-.03em;color:var(--text)}
+.preloader-text .cursor-blink{display:inline-block;width:3px;height:1.2em;background:var(--gold);margin-left:4px;animation:blink .8s step-end infinite;vertical-align:text-bottom}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* Scroll Progress */
+.scroll-progress{position:fixed;top:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--teal));z-index:9999;transition:width .1s linear}
+.scroll-pct{position:fixed;bottom:28px;right:28px;z-index:9999;font-size:11px;color:var(--muted);letter-spacing:2px;font-weight:600;opacity:.5;transition:opacity .3s}
+.scroll-pct:hover{opacity:1}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:transparent;backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);border-bottom:1px solid transparent;transition:background .5s,backdrop-filter .5s,border-color .5s}
+nav.scrolled{background:rgba(7,7,7,0.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom-color:var(--border)}
+.nav-logo{font-weight:700;font-size:15px;letter-spacing:-.02em;color:var(--text);display:flex;align-items:center;gap:10px}
+.nav-logo .dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.nav-links{display:flex;gap:8px;list-style:none;align-items:center}
+.nav-links a{padding:8px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--muted);transition:color .2s,background .2s;position:relative;cursor:none}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.04)}
+.nav-cta{background:var(--gold)!important;color:#070707!important;font-weight:700!important;padding:10px 20px!important}
+.nav-cta:hover{background:#d4a845!important}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:901}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:var(--nav-h)}
+.hero-canvas{position:absolute;inset:0;z-index:0}
+.hero-gradient{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(200,155,60,0.08),transparent 70%),radial-gradient(ellipse 50% 50% at 20% 80%,rgba(42,122,107,0.06),transparent 60%),radial-gradient(ellipse 40% 40% at 80% 20%,rgba(200,155,60,0.04),transparent 50%);animation:gradientShift 12s ease-in-out infinite alternate}
+@keyframes gradientShift{0%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.1) rotate(2deg)}100%{transform:scale(0.95) rotate(-1deg)}}
+.hero-image{position:absolute;inset:0;z-index:0;background:url('images/hero.jpg') center 20%/cover no-repeat;filter:grayscale(1) brightness(0.35) contrast(1.1);opacity:.45}
+.hero-shapes{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.section-bg{position:relative;overflow:hidden}
+.care-bg,.exp-bg{position:absolute;inset:0;z-index:0;will-change:transform}
+.care-bg{background:url('images/bg-1.jpg') center/cover no-repeat;filter:grayscale(1) brightness(0.2) contrast(1.1);opacity:.35}
+.exp-bg{background:url('images/bg-2.jpg') center/cover no-repeat;filter:grayscale(1) brightness(0.2) contrast(1.1);opacity:.35}
+.section-gold{background:var(--gold)!important;border-top:1px solid rgba(7,7,7,0.1)!important;border-bottom:1px solid rgba(7,7,7,0.1)!important}
+.section-gold .section-label::before{background:#070707}
+.card-gold{background:#ecd6a8;border-color:rgba(7,7,7,0.12)}
+.card-gold:hover{border-color:#070707;box-shadow:0 12px 40px rgba(0,0,0,0.12)}
+.card-gold h3{color:#fff}
+.card-gold p{color:rgba(255,255,255,0.85)}
+.icon-gold{background:rgba(200,155,60,0.25);color:var(--gold)!important}
+.hero-shape{position:absolute;border:1px solid rgba(200,155,60,0.08);border-radius:50%;animation:floatShape 20s ease-in-out infinite}
+.hero-shape:nth-child(1){width:400px;height:400px;top:-100px;right:-100px;animation-delay:0s}
+.hero-shape:nth-child(2){width:250px;height:250px;bottom:10%;left:-80px;animation-delay:-7s;border-radius:30%}
+.hero-shape:nth-child(3){width:180px;height:180px;top:30%;right:15%;animation-delay:-14s;border-radius:10%;border-color:rgba(42,122,107,0.06)}
+@keyframes floatShape{0%,100%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(30px,-30px) rotate(5deg)}66%{transform:translate(-20px,20px) rotate(-3deg)}}
+.hero-content{position:relative;z-index:2;width:100%;padding:80px 0}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--gold-dim);background:rgba(200,155,60,0.06);padding:8px 16px;border-radius:999px;font-size:12px;font-weight:600;color:var(--gold);margin-bottom:24px;cursor:none}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.hero h1{font-size:clamp(2.4rem,5.5vw,4.2rem);font-weight:700;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px;max-width:900px}
+.hero h1 .gold{color:var(--gold)}
+.hero p{font-size:clamp(1rem,1.3vw,1.15rem);color:var(--muted);max-width:560px;line-height:1.8;margin-bottom:36px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:var(--radius-sm);font-family:var(--font);font-weight:600;font-size:14px;border:none;cursor:none;transition:transform .2s,box-shadow .2s,background .2s;position:relative;overflow:hidden}
+.btn:active{transform:scale(0.97)}
+.btn-primary{background:var(--gold);color:#070707;box-shadow:0 4px 20px rgba(200,155,60,0.2)}
+.btn-primary:hover{background:#d4a845;transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,155,60,0.3)}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid rgba(255,255,255,0.15)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.marquee-wrap{position:absolute;bottom:0;left:0;right:0;overflow:hidden;height:48px;border-top:1px solid var(--border)}
+.marquee{display:flex;animation:marquee 30s linear infinite;white-space:nowrap;height:100%;align-items:center}
+.marquee span{padding:0 32px;font-size:12px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;font-weight:500}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* Section Common */
+.section{padding:120px 0;position:relative}
+.section-label{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:16px}
+.section-label::before{content:'';display:block;width:24px;height:1.5px;background:var(--gold)}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-.03em;line-height:1.12;margin-bottom:20px}
+.section-sub{font-size:1rem;color:var(--muted);max-width:600px;line-height:1.8}
+.split-word{display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.split-word.visible{opacity:1;transform:translateY(0)}
+
+/* Reveal Section */
+.reveal-section{padding:100px 0;overflow:hidden}
+.reveal-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.reveal-text{margin:auto 0}
+.reveal-statement{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:600;letter-spacing:-.02em;line-height:1.3;max-width:800px;margin-bottom:24px}
+.reveal-statement .gold{color:var(--gold)}
+.reveal-sub{font-size:1rem;color:var(--muted);max-width:640px;line-height:1.8}
+.reveal-portrait-wrap{position:relative;overflow:hidden;will-change:transform}
+.reveal-portrait{border-radius:20px;overflow:hidden;position:relative;aspect-ratio:3/4;max-width:380px;margin:0 auto;background:var(--surface);border:1px solid var(--border)}
+.reveal-portrait img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.reveal-portrait::after{content:'';position:absolute;inset:0;border-radius:20px;box-shadow:inset 0 0 60px rgba(7,7,7,0.3)}
+
+/* Unusual Combination */
+.combo-section{padding:120px 0;overflow:hidden}
+.combo-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.combo-visual{position:relative;height:480px;display:flex;align-items:center;justify-content:center}
+.combo-cluster{position:relative;width:380px;height:380px}
+.combo-circle{position:absolute;width:160px;height:160px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text);transition:transform .6s cubic-bezier(.22,1,.36,1),box-shadow .6s;border:1.5px solid;text-align:center;padding:0 12px;line-height:1.3}
+.combo-circle:nth-child(1){background:rgba(200,155,60,0.08);border-color:rgba(200,155,60,0.2);top:0;left:110px;box-shadow:0 0 40px rgba(200,155,60,0.05)}
+.combo-circle:nth-child(2){background:rgba(42,122,107,0.08);border-color:rgba(42,122,107,0.2);top:60px;left:210px;box-shadow:0 0 40px rgba(42,122,107,0.05)}
+.combo-circle:nth-child(3){background:rgba(200,155,60,0.06);border-color:rgba(200,155,60,0.15);top:170px;left:230px;box-shadow:0 0 40px rgba(200,155,60,0.03)}
+.combo-circle:nth-child(4){background:rgba(42,122,107,0.06);border-color:rgba(42,122,107,0.15);top:220px;left:80px}
+.combo-circle:nth-child(5){background:rgba(200,155,60,0.04);border-color:rgba(200,155,60,0.1);top:130px;left:0}
+.combo-circle.visible{transform:scale(1);opacity:1}
+.combo-circle:not(.visible){transform:scale(0.8);opacity:0}
+.combo-text h2{margin-bottom:16px}
+.combo-text p{color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:16px}
+
+/* Cards Grid */
+.cards-grid{display:grid;gap:16px;margin-top:48px}
+.cards-5{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px 24px;transition:all .4s cubic-bezier(.22,1,.36,1);cursor:default}
+.card:hover{transform:translateY(-4px);border-color:rgba(200,155,60,0.15);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.card .icon{width:44px;height:44px;border-radius:12px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;color:var(--gold)}
+.card h3{font-size:15px;font-weight:600;margin-bottom:8px}
+.card p{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* Offer section */
+.offer-grid{display:grid;gap:16px;margin-top:48px}
+.offer-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+
+/* Skills Accordion */
+.skills-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.skills-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.skills-left{position:sticky;top:100px}
+.skill-group{border-bottom:1px solid var(--border)}
+.skill-header{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;user-select:none;transition:color .2s}
+.skill-header:hover{color:var(--gold)}
+.skill-header h3{font-size:15px;font-weight:600}
+.skill-header .chevron{width:20px;height:20px;transition:transform .4s cubic-bezier(.22,1,.36,1);color:var(--muted)}
+.skill-group.open .chevron{transform:rotate(180deg);color:var(--gold)}
+.skill-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.22,1,.36,1),padding .5s}
+.skill-group.open .skill-body{max-height:300px}
+.skill-body-inner{padding:0 0 18px;display:flex;flex-wrap:wrap;gap:8px}
+.skill-tag{padding:6px 14px;border-radius:6px;background:rgba(255,255,255,0.04);border:1px solid var(--border);font-size:13px;color:var(--muted);transition:color .2s,border-color .2s}
+.skill-tag:hover{color:var(--gold);border-color:rgba(200,155,60,0.2)}
+
+/* Timeline */
+.timeline{position:relative;padding:40px 0}
+.timeline-line{position:absolute;left:24px;top:0;bottom:0;width:1.5px;background:var(--border);overflow:hidden}
+.timeline-line-inner{width:100%;height:0;background:linear-gradient(to bottom,var(--gold),var(--teal));transition:height .1s linear}
+.timeline-item{display:grid;grid-template-columns:50px 1fr;gap:32px;padding-bottom:48px;position:relative}
+.timeline-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--gold);background:var(--bg);position:relative;top:6px;left:19px;z-index:2;transition:background .4s,border-color .4s}
+.timeline-item.visible{opacity:1;transform:translateY(0)}.timeline-item.visible .timeline-dot{background:var(--gold)}
+.timeline-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all .4s}
+.timeline-card:hover{border-color:rgba(200,155,60,0.12)}
+.timeline-date{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.timeline-role{font-size:16px;font-weight:600;margin-bottom:4px}
+.timeline-org{font-size:14px;color:var(--muted);margin-bottom:10px}
+.timeline-desc{font-size:13px;color:var(--muted);line-height:1.7}
+.timeline-desc li{margin-bottom:4px;list-style:none;padding-left:14px;position:relative}
+.timeline-desc li::before{content:'—';position:absolute;left:0;color:var(--gold);opacity:.5}
+
+/* Projects */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;margin-top:48px}
+.project-card{border-radius:var(--radius);overflow:hidden;background:var(--surface);border:1px solid var(--border);perspective:1000px;cursor:pointer;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.project-card-inner{transform-style:preserve-3d;transition:transform .2s}
+.project-thumb{width:100%;aspect-ratio:16/10;overflow:hidden;position:relative;background:var(--surface2)}
+.project-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.project-card:hover .project-thumb img{transform:scale(1.05)}
+.thumb-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;letter-spacing:-.04em;position:relative;transition:transform .6s}
+.project-card:hover .thumb-bg{transform:scale(1.05)}
+.thumb-bg .initials{position:relative;z-index:1}
+.thumb-overlay{position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(0,0,0,0.3));z-index:0}
+.thumb-legiscore{background:linear-gradient(135deg,#0a1628,#1a2744,#2a3a5c)}
+.thumb-salso{background:linear-gradient(135deg,#b45309,#d97706,#f59e0b)}
+.thumb-pet{background:linear-gradient(135deg,#065f46,#059669,#34d399)}
+.thumb-plumb{background:linear-gradient(135deg,#1e3a5f,#2563eb,#60a5fa)}
+.thumb-auto{background:linear-gradient(135deg,#7f1d1d,#dc2626,#f87171)}
+.thumb-radio{background:linear-gradient(135deg,#134e4a,#0d9488,#5eead4)}
+.thumb-taxi{background:linear-gradient(135deg,#3d2e1e,#6b4f2a,#a0773e)}
+.project-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,7,0.8),transparent);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:16px}
+.project-card:hover .project-overlay{opacity:1}
+.project-overlay span{font-size:12px;color:var(--gold);font-weight:600;letter-spacing:1px}
+.project-info{padding:20px 20px 22px}
+.project-info h3{font-size:14px;font-weight:600;margin-bottom:4px}
+.project-info p{font-size:12px;color:var(--muted);line-height:1.6}
+.project-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);padding:3px 10px;border-radius:4px;margin-bottom:8px}
+
+/* Phone Frame */
+.phone-section{padding:80px 0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.phone-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.phone-frame{width:300px;height:620px;border-radius:40px;background:#101010;border:3px solid #2a2a2a;padding:8px;box-shadow:0 24px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04);position:relative;margin:0 auto}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:24px;background:#101010;border-radius:0 0 16px 16px;z-index:3}
+.phone-screen{width:100%;height:100%;border-radius:32px;overflow:hidden;background:#f8f8f8;position:relative}
+.phone-screen iframe{width:100%;height:100%;border:none}
+.phone-info h2{margin-bottom:16px}
+.phone-info p{color:var(--muted);margin-bottom:24px}
+
+/* Value Proposal */
+.value-card{background:linear-gradient(135deg,var(--surface),rgba(200,155,60,0.04));border:1px solid rgba(200,155,60,0.1);border-radius:var(--radius);padding:48px;max-width:800px;margin:40px auto 0}
+.value-card h3{font-size:1.3rem;font-weight:700;margin-bottom:8px;color:var(--gold)}
+.value-card .value-intro{color:var(--muted);margin-bottom:24px}
+.value-points{display:grid;gap:12px}
+.value-point{display:flex;gap:12px;align-items:flex-start}
+.value-point-num{width:28px;height:28px;border-radius:8px;background:var(--gold-dim);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.value-point p{font-size:14px;color:var(--text);line-height:1.6}
+.value-point p small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+
+/* Contact */
+.contact-section{text-align:center;padding:100px 0}
+.contact-card{display:inline-flex;flex-direction:column;align-items:center;gap:32px}
+.contact-info{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+.contact-item{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:var(--radius-sm);border:1px solid var(--border);font-size:14px;color:var(--muted);transition:all .3s}
+.contact-item:hover{border-color:rgba(200,155,60,0.2);color:var(--text)}
+.contact-item .icon{color:var(--gold);font-size:16px}
+.contact-email-btn{display:inline-flex;align-items:center;gap:10px;padding:18px 36px;background:var(--gold);color:#070707;border-radius:var(--radius-sm);font-weight:700;font-size:16px;transition:all .3s}
+.contact-email-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,155,60,0.3)}
+.contact-email-btn .arrow{transition:transform .3s}
+.contact-email-btn:hover .arrow{transform:translateX(4px)}
+.contact-available{margin-top:16px;font-size:13px;color:var(--muted)}
+
+/* Footer */
+footer{padding:48px 0 32px;border-top:1px solid var(--border);text-align:center}
+footer .socials{display:flex;gap:16px;justify-content:center;margin-bottom:20px}
+footer .socials a{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);transition:all .3s}
+footer .socials a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+footer p{font-size:12px;color:var(--muted)}
+footer .version{display:inline-block;margin-top:8px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.08)}
+
+/* Responsive */
+@media(max-width:1024px){
+  .combo-grid{grid-template-columns:1fr;gap:48px}
+  .combo-visual{height:400px;max-width:500px;margin:0 auto}
+  .phone-layout{grid-template-columns:1fr;gap:40px;text-align:center}
+  .phone-frame{margin:0 auto}
+  .skills-inner{grid-template-columns:1fr;gap:32px}
+  .skills-left{position:static}
+  .reveal-grid{grid-template-columns:1fr;gap:40px;text-align:center}
+  .reveal-portrait-wrap{margin:0 auto;max-width:300px}
+  .reveal-statement{max-width:100%}
+  .reveal-sub{margin:0 auto}
+}
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(7,7,7,0.98);backdrop-filter:blur(24px);flex-direction:column;padding:24px 32px;gap:4px;border-bottom:1px solid var(--border);z-index:900}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  .section{padding:80px 0}
+  .combo-visual{height:320px}
+  .combo-cluster{width:280px;height:280px}
+  .combo-circle{width:120px;height:120px;font-size:11px}
+  .combo-circle:nth-child(1){top:0;left:80px}
+  .combo-circle:nth-child(2){top:45px;left:155px}
+  .combo-circle:nth-child(3){top:125px;left:170px}
+  .combo-circle:nth-child(4){top:160px;left:55px}
+  .combo-circle:nth-child(5){top:95px;left:0}
+  .projects-grid{grid-template-columns:1fr}
+  .offer-grid{grid-template-columns:1fr}
+  .cards-5{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:2rem}
+  .timeline-item{grid-template-columns:40px 1fr;gap:20px}
+  .timeline-line{left:20px}
+  .timeline-dot{left:15px}
+}
+@media(max-width:480px){
+  .cards-5{grid-template-columns:1fr}
+  .cards-grid{grid-template-columns:1fr}
+  .value-card{padding:28px 20px}
+  .contact-item{width:100%;justify-content:center}
+  .hero-btns{flex-direction:column}
+  .hero-btns .btn{width:100%;justify-content:center}
+  .phone-frame{width:260px;height:540px}
+  nav{padding:0 16px}
+  .scroll-pct{display:none}
+}
+@media(max-width:1024px){
+  .cursor{display:none}
+  body{cursor:auto}
+  .btn,.nav-links a,.nav-cta,.project-card,.skill-header,.contact-email-btn,footer .socials a,.contact-item{cursor:pointer}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-text" id="preloader-text"></div>
+</div>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="scroll-pct" id="scrollPct">(0)</div>
+
+<nav id="nav">
+  <a href="#" class="nav-logo"><span class="dot"></span>Gerald Kenosi</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#offer">What I Offer</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-canvas">
+    <div class="hero-image"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-shapes">
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+    </div>
+  </div>
+  <div class="container" style="width:100%">
+    <div class="hero-content">
+      <h1>AI-Powered Legal &amp;<br>Digital Operations <span class="gold">Specialist</span></h1>
+      <p>I combine legal knowledge, AI-assisted productivity systems, and digital development to help businesses improve efficiency, automate repetitive work, and modernise operations.</p>
+      <div class="hero-btns">
+        <a href="#approach" class="btn btn-primary">Explore My Approach</a>
+        <a href="#work" class="btn btn-outline">View My Work</a>
+      </div>
+    </div>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>Legal Knowledge</span><span>•</span><span>AI Systems</span><span>•</span><span>Web Development</span><span>•</span><span>Operations</span><span>•</span><span>Digital Strategy</span><span>•</span>
+      <span>Legal Knowledge</span><span>•</span><span>AI Systems</span><span>•</span><span>Web Development</span><span>•</span><span>Operations</span><span>•</span><span>Digital Strategy</span><span>•</span>
+    </div>
+  </div>
+</section>
+
+<section class="reveal-section" id="approach">
+  <div class="container">
+    <div class="reveal-grid">
+      <div class="reveal-text">
+        <div class="reveal-statement">
+          I combine <span class="gold">legal thinking</span>, <span class="gold">AI automation</span>, and <span class="gold">digital systems</span> — a combination most applicants <span class="gold">don't have</span>.
+        </div>
+        <p class="reveal-sub">I don't present myself as just an LLB graduate or a web developer. I present myself as someone who can increase output and modernise operations. That is what gets attention.</p>
+      </div>
+      <div class="reveal-portrait-wrap" id="revealPortrait">
+        <div class="reveal-portrait">
+          <img src="images/portrait.jpg" alt="Gerald Kenosi">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="combo-section">
+  <div class="container">
+    <div class="combo-grid">
+      <div class="combo-visual">
+        <div class="combo-cluster">
+          <div class="combo-circle" data-delay="0">Legal</div>
+          <div class="combo-circle" data-delay="100">AI</div>
+          <div class="combo-circle" data-delay="200">Web &amp; Tech</div>
+          <div class="combo-circle" data-delay="300">Operations</div>
+          <div class="combo-circle" data-delay="400">Content &amp; Media</div>
+        </div>
+      </div>
+      <div class="combo-text">
+        <span class="section-label">My Advantage</span>
+        <h2 class="section-title">An Unusual Combination</h2>
+        <p>Most professionals specialise in one area. My career has built a rare overlap across five domains — and that crossover is exactly what modern businesses need.</p>
+        <p>I can step into a law firm and improve their document workflows with AI. I can join a startup and build their web presence, set up operational systems, and handle compliance. I can work with an NGO and manage their digital infrastructure, legal needs, and administrative operations simultaneously.</p>
+        <p style="color:var(--gold);font-weight:600">This flexibility is valuable. And it's rare.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-bg" id="careSection">
+  <div class="care-bg"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <span class="section-label">What Companies Care About</span>
+    <h2 class="section-title">Hiring managers care about results</h2>
+    <p class="section-sub">I structure my value around five things every business wants.</p>
+    <div class="cards-grid cards-5">
+      <div class="card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Save Time</h3><p>AI-assisted document generation, automated workflows, and streamlined research that reduces hours of work into minutes.</p></div>
+      <div class="card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Make Money</h3><p>Digital systems, better online presence, and operational efficiency that directly impact the bottom line.</p></div>
+      <div class="card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div><h3>Reduce Workload</h3><p>Automation systems that handle repetitive admin, legal drafting, and operational tasks — freeing your team.</p></div>
+      <div class="card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><h3>Solve Pain</h3><p>Operational bottlenecks, unclear processes, and manual workflows — diagnosed and resolved systematically.</p></div>
+      <div class="card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3>Increase Output</h3><p>With AI systems, streamlined operations, and digital tools, your team produces more with less effort.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gold" id="offer">
+  <div class="container">
+    <span class="section-label" style="color:#070707">My Offer</span>
+    <h2 class="section-title" style="color:#070707">What I Bring to Your Organisation</h2>
+    <p class="section-sub" style="color:rgba(7,7,7,0.7)">Five value pillars that make me immediately useful — from day one.</p>
+    <div class="offer-grid">
+      <div class="card card-gold"><div class="icon icon-gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="15" x2="23" y2="15"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="15" x2="4" y2="15"/></svg></div><h3>AI Productivity Implementation</h3><p>I help businesses integrate AI tools into daily operations to significantly improve productivity and reduce repetitive workload. Most companies know AI exists but don't know how to use it effectively.</p></div>
+      <div class="card card-gold"><div class="icon icon-gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>AI Prompt Engineering &amp; Workflow Automation</h3><p>I build AI-assisted workflows for document generation, admin automation, research systems, and content production — performing tasks comparable to entry-level operational support.</p></div>
+      <div class="card card-gold"><div class="icon icon-gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div><h3>Legal + Tech Modernisation</h3><p>I help law firms digitise, NGOs organise compliance, startups set up legal operations, and companies improve documentation through the rare combination of legal thinking and technical ability.</p></div>
+      <div class="card card-gold"><div class="icon icon-gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Web &amp; Digital Systems</h3><p>I build, manage, and improve websites, digital platforms, and online presence. For SMEs and startups that need someone who can do both legal and tech, this is gold.</p></div>
+      <div class="card card-gold"><div class="icon icon-gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div><h3>Startup Adaptability</h3><p>Operations, legal, digital, AI, content, admin — I do what needs to be done. For small and growing businesses, having one person who covers all these bases is a major advantage.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="skills-section section" id="skills">
+  <div class="container">
+    <div class="skills-inner">
+      <div class="skills-left">
+        <span class="section-label">Capabilities</span>
+        <h2 class="section-title">Skills &amp; Tools</h2>
+        <p class="section-sub">Built across legal practice, technology development, AI systems, and creative work.</p>
+      </div>
+      <div>
+        <div class="skill-group open">
+          <div class="skill-header" onclick="toggleSkill(this)">
+            <h3>Legal &amp; Administrative</h3>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="skill-body">
+            <div class="skill-body-inner">
+              <span class="skill-tag">Legal Research &amp; Case Analysis</span>
+              <span class="skill-tag">Legal Drafting &amp; Documentation</span>
+              <span class="skill-tag">Labour Law &amp; CCMA Preparation</span>
+              <span class="skill-tag">Contract &amp; Policy Drafting</span>
+              <span class="skill-tag">Client Consultation &amp; Advisory</span>
+              <span class="skill-tag">Proposal Drafting &amp; Admin Support</span>
+            </div>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-header" onclick="toggleSkill(this)">
+            <h3>AI &amp; Productivity Tools</h3>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="skill-body">
+            <div class="skill-body-inner">
+              <span class="skill-tag">ChatGPT</span>
+              <span class="skill-tag">Google Gemini</span>
+              <span class="skill-tag">Claude AI</span>
+              <span class="skill-tag">DeepSeek</span>
+              <span class="skill-tag">AI Prompt Engineering</span>
+              <span class="skill-tag">AI Agent &amp; Workflow Automation</span>
+              <span class="skill-tag">AI-Assisted System Development</span>
+            </div>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-header" onclick="toggleSkill(this)">
+            <h3>Web &amp; Technology</h3>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="skill-body">
+            <div class="skill-body-inner">
+              <span class="skill-tag">Frontend Development (HTML/CSS/JS)</span>
+              <span class="skill-tag">Backend Development</span>
+              <span class="skill-tag">Website Development &amp; Maintenance</span>
+              <span class="skill-tag">Mobile App Management</span>
+              <span class="skill-tag">Social Media &amp; Digital Branding</span>
+              <span class="skill-tag">Graphic Design</span>
+              <span class="skill-tag">Digital Platform Management</span>
+            </div>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-header" onclick="toggleSkill(this)">
+            <h3>General Professional</h3>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="skill-body">
+            <div class="skill-body-inner">
+              <span class="skill-tag">Communication &amp; Client Relations</span>
+              <span class="skill-tag">Problem Solving &amp; Analytical Thinking</span>
+              <span class="skill-tag">Project Coordination</span>
+              <span class="skill-tag">Time Management</span>
+              <span class="skill-tag">Microsoft Office Suite</span>
+              <span class="skill-tag">Adobe Creative Suite</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-bg" id="experience">
+  <div class="exp-bg"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <span class="section-label">Experience</span>
+    <h2 class="section-title">Professional Journey</h2>
+    <p class="section-sub">A career built across legal advisory, digital systems, and operational leadership.</p>
+    <div class="timeline" id="timeline">
+      <div class="timeline-line"><div class="timeline-line-inner" id="timelineLine"></div></div>
+
+      <div class="timeline-item" data-delay="0">
+        <div><div class="timeline-dot"></div></div>
+        <div class="timeline-card">
+          <div class="timeline-date">March 2025 — Present</div>
+          <div class="timeline-role">Legal Consultant &amp; Advisor</div>
+          <div class="timeline-org">LegisCore Legal Consultants and Advisors (Self-Employed) • Soweto, Johannesburg</div>
+          <ul class="timeline-desc">
+            <li>Conduct legal research and prepare legal documentation</li>
+            <li>Assist with CCMA matters and labour dispute preparation</li>
+            <li>Draft legal documents, opinions, and administrative correspondence</li>
+            <li>Provide advisory services on Labour Law, Family Law, Corporate Law, and Wills &amp; Estates</li>
+            <li>Conduct client consultations and administrative support functions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-delay="100">
+        <div><div class="timeline-dot"></div></div>
+        <div class="timeline-card">
+          <div class="timeline-date">January 2025 — March 2025</div>
+          <div class="timeline-role">Vacation Work Volunteer</div>
+          <div class="timeline-org">Baase and Mkhatshwa Attorneys Inc. • Randburg, Johannesburg</div>
+          <ul class="timeline-desc">
+            <li>Conducted legal research for attorneys and case preparation</li>
+            <li>Assisted with legal strategy discussions and brainstorming</li>
+            <li>Attended observations at Magistrates Courts and CCMA proceedings</li>
+            <li>Provided legal administrative support</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-delay="200">
+        <div><div class="timeline-dot"></div></div>
+        <div class="timeline-card">
+          <div class="timeline-date">December 2024 — February 2025</div>
+          <div class="timeline-role">Volunteer Legal Advisor</div>
+          <div class="timeline-org">Community Outreach Program Trust • Soweto, Johannesburg</div>
+          <ul class="timeline-desc">
+            <li>Assisted clients with legal guidance and support</li>
+            <li>Prepared disciplinary hearing documentation and workplace policies</li>
+            <li>Drafted suspension letters, notices, charge sheets, and legal correspondence</li>
+            <li>Assisted clients with CCMA conciliation preparation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-delay="300">
+        <div><div class="timeline-dot"></div></div>
+        <div class="timeline-card">
+          <div class="timeline-date">March 2021 — Present</div>
+          <div class="timeline-role">Founder | IT Volunteer | Volunteer Legal Advisor</div>
+          <div class="timeline-org">South African Learner Support Organisation NPC (SALSO) • Johannesburg</div>
+          <ul class="timeline-desc">
+            <li>Assisted in founding and developing the organisation from inception</li>
+            <li>Designed, developed, and managed organisational websites and digital platforms</li>
+            <li>Assisted with mobile application development and digital infrastructure</li>
+            <li>Managed organisational social media platforms and digital branding</li>
+            <li>Drafted proposals, support documents, and administrative material</li>
+            <li>Assisted with legal advisory and organisational compliance</li>
+            <li>Managed financial administration and operational coordination</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-delay="400">
+        <div><div class="timeline-dot"></div></div>
+        <div class="timeline-card">
+          <div class="timeline-date">August 2018 — May 2022</div>
+          <div class="timeline-role">Creative Consultant (Self-Employed)</div>
+          <div class="timeline-org">Kenolo Holdings (Pty) Ltd • Brakpan</div>
+          <ul class="timeline-desc">
+            <li>Developed websites and digital branding material for clients</li>
+            <li>Managed social media and digital marketing campaigns</li>
+            <li>Assisted businesses with online branding strategies and digital communication</li>
+            <li>Conducted content creation, graphic design, and multimedia work</li>
+            <li>Utilised AI-assisted tools to improve workflow efficiency</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-delay="500">
+        <div><div class="timeline-dot"></div></div>
+        <div class="timeline-card">
+          <div class="timeline-date">October 2021 — May 2022</div>
+          <div class="timeline-role">Graphic Designer</div>
+          <div class="timeline-org">Show Me Your Number NPC • Marshalltown, Johannesburg</div>
+          <ul class="timeline-desc">
+            <li>Created digital awareness campaign material and branded media content</li>
+            <li>Assisted with multimedia communication and community campaign content</li>
+            <li>Worked with teams to communicate complex information effectively</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)" id="work">
+  <div class="container">
+    <span class="section-label">Projects</span>
+    <h2 class="section-title">Websites &amp; Digital Work</h2>
+    <p class="section-sub">Live sites, demo concepts, and client proposals that showcase my development capabilities.</p>
+
+    <div class="projects-grid">
+
+      <a href="https://legiscore.co.za" target="_blank" rel="noopener" class="project-card">
+        <div class="project-card-inner">
+          <div class="project-thumb">
+            <div class="thumb-bg thumb-legiscore"><div class="thumb-overlay"></div><span class="initials" style="color:var(--gold);text-shadow:0 2px 20px rgba(200,155,60,0.3)">LC</span></div>
+            <div class="project-overlay"><span>Visit Site →</span></div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">Live Site</span>
+            <h3>LegisCore Legal Consultants</h3>
+            <p>Professional legal consulting website built and managed for my own practice.</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://salso.org.za" target="_blank" rel="noopener" class="project-card">
+        <div class="project-card-inner">
+          <div class="project-thumb">
+            <div class="thumb-bg thumb-salso"><div class="thumb-overlay"></div><span class="initials" style="color:#fff">SA</span></div>
+            <div class="project-overlay"><span>Visit Site →</span></div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">Live Site</span>
+            <h3>South African Learner Support Organisation</h3>
+            <p>Organisational website developed and managed since the organisation's founding.</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/pet-spa.html" target="_blank" rel="noopener" class="project-card">
+        <div class="project-card-inner">
+          <div class="project-thumb">
+            <div class="thumb-bg thumb-pet"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🐾</span></div>
+            <div class="project-overlay"><span>View Demo →</span></div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">Client Demo</span>
+            <h3>Pet Spa Website <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
+            <p>Professional pet grooming service website. Developed as a proposal; not accepted.</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/plumbing.html" target="_blank" rel="noopener" class="project-card">
+        <div class="project-card-inner">
+          <div class="project-thumb">
+            <div class="thumb-bg thumb-plumb"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🔧</span></div>
+            <div class="project-overlay"><span>View Demo →</span></div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">Client Demo</span>
+            <h3>Plumbing &amp; HVAC Service <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
+            <p>Emergency home services website with 24/7 booking. Developed as a proposal; not accepted.</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/auto-parts.html" target="_blank" rel="noopener" class="project-card">
+        <div class="project-card-inner">
+          <div class="project-thumb">
+            <div class="thumb-bg thumb-auto"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🚗</span></div>
+            <div class="project-overlay"><span>View Demo →</span></div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">Client Demo</span>
+            <h3>Auto Parts Store <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
+            <p>Family-owned auto parts e-commerce site. Developed as a proposal; not accepted.</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/radiology.html" target="_blank" rel="noopener" class="project-card">
+        <div class="project-card-inner">
+          <div class="project-thumb">
+            <div class="thumb-bg thumb-radio"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🩻</span></div>
+            <div class="project-overlay"><span>View Demo →</span></div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">Client Demo</span>
+            <h3>Radiology Supply Company <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
+            <p>Medical imaging supply catalog website. Developed as a proposal; not accepted.</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="demos/taxidermy.html" target="_blank" rel="noopener" class="project-card">
+        <div class="project-card-inner">
+          <div class="project-thumb">
+            <div class="thumb-bg thumb-taxi"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🦌</span></div>
+            <div class="project-overlay"><span>View Demo →</span></div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">Client Demo</span>
+            <h3>Taxidermy Supply Store <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
+            <p>Heritage taxidermy supply catalog. Developed as a proposal; not accepted.</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="phone-section" id="movetrack">
+  <div class="container">
+    <div class="phone-layout">
+      <div class="phone-info">
+        <span class="section-label">Product Demo</span>
+        <h2 class="section-title">MoveTrack Command Center</h2>
+        <p>A premium move tracking system for removals companies — reducing uncertainty, complaints, and operational blind spots through real-time tracking, inventory proof, and delivery confirmation.</p>
+        <div class="hero-btns">
+          <a href="demos/movetrack.html" target="_blank" rel="noopener" class="btn btn-primary">View Full Demo →</a>
+          <span class="btn btn-outline" style="cursor:default;opacity:.6">Interactive Preview</span>
+        </div>
+        <div style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:400px">
+          <div class="card" style="padding:16px;text-align:center"><b style="font-size:18px;color:var(--gold)">3</b><p style="font-size:11px;margin-top:4px">App Interfaces</p></div>
+          <div class="card" style="padding:16px;text-align:center"><b style="font-size:18px;color:var(--gold)">12</b><p style="font-size:11px;margin-top:4px">Interactive Screens</p></div>
+          <div class="card" style="padding:16px;text-align:center"><b style="font-size:18px;color:var(--gold)">1</b><p style="font-size:11px;margin-top:4px">Connected System</p></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <iframe src="demos/movetrack-mobile.html" title="MoveTrack Mobile Preview" loading="lazy"></iframe>
+          </div>
+        </div>
+        <span style="font-size:11px;color:var(--muted);letter-spacing:1px">LIVE PREVIEW — INTERACTIVE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="text-align:center">
+    <span class="section-label" style="justify-content:center">Value Proposition</span>
+    <h2 class="section-title">How I Can Improve Your Business in 30 Days</h2>
+    <p class="section-sub" style="margin:0 auto">This is what separates a standard application from a compelling offer. I don't ask for a job — I demonstrate value.</p>
+    <div class="value-card">
+      <h3>Within 30 Days, I Will:</h3>
+      <p class="value-intro">These are not promises. These are capabilities I have delivered before and can deliver again.</p>
+      <div class="value-points">
+        <div class="value-point"><div class="value-point-num">1</div><p>Audit your current operational workflows and identify at least 3 areas where AI-assisted systems can reduce manual workload <small>Documented with specific recommendations and implementation steps</small></p></div>
+        <div class="value-point"><div class="value-point-num">2</div><p>Implement AI-assisted document generation and research workflows that reduce drafting time by up to 60% <small>Tested with real documents from your organisation</small></p></div>
+        <div class="value-point"><div class="value-point-num">3</div><p>Review and improve your digital presence — website, platforms, or online operations <small>Actionable improvements within the first week</small></p></div>
+        <div class="value-point"><div class="value-point-num">4</div><p>Set up automated systems for repetitive administrative tasks — freeing your team to focus on higher-value work <small>Email automation, document templates, scheduling systems</small></p></div>
+        <div class="value-point"><div class="value-point-num">5</div><p>Provide a clear roadmap for continued improvement beyond 30 days <small>You keep the systems after I deliver them</small></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-card">
+      <span class="section-label" style="justify-content:center">Let's Talk</span>
+      <h2 class="section-title" style="text-align:center">Ready to Work Together?</h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center">I am available to start immediately. Send me an email and let's arrange a briefing meeting.</p>
+      <div class="contact-info">
+        <a href="tel:+27691663143" class="contact-item"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.64a16 16 0 0 0 6.29 6.29l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> 069 166 3143</a>
+        <a href="https://www.linkedin.com/in/gerald-kenosi-2987602a0/" target="_blank" rel="noopener" class="contact-item"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></span> LinkedIn</a>
+      </div>
+      <a href="mailto:gerald.kenosi@gmail.com?subject=Requesting%20a%20Briefing%20Meeting" class="contact-email-btn">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Send Email <span class="arrow">→</span>
+      </a>
+      <div class="contact-available">Available for contract, independent contractor, permanent, or temporary work • Code 10 Driver's License • Johannesburg</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="text-align:center;padding:60px 0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <span class="section-label" style="justify-content:center">CV Download</span>
+    <h2 class="section-title" style="text-align:center">Prefer a Traditional CV?</h2>
+    <p class="section-sub" style="margin:0 auto;">Some people prefer a conventional CV format. Download mine in PDF.</p>
+    <a href="gerald-kenosi-cv.pdf" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:24px;display:inline-flex">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download CV (PDF)
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="socials">
+    <a href="https://www.linkedin.com/in/gerald-kenosi-2987602a0/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+    <a href="mailto:gerald.kenosi@gmail.com" aria-label="Email"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+  </div>
+  <p>Gerald Kenosi — AI-Powered Legal &amp; Digital Operations Specialist</p>
+  <p style="margin-top:4px">Johannesburg, South Africa</p>
+  <span class="version">V1.0</span>
+</footer>
+
+<script>
+// Custom Cursor
+const cursor = document.getElementById('cursor');
+let cursorX = 0, cursorY = 0, targetX = 0, targetY = 0;
+document.addEventListener('mousemove', e => { targetX = e.clientX; targetY = e.clientY; });
+document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
+document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+function updateCursor() {
+  cursorX += (targetX - cursorX) * 0.18;
+  cursorY += (targetY - cursorY) * 0.18;
+  cursor.style.left = cursorX + 'px';
+  cursor.style.top = cursorY + 'px';
+  requestAnimationFrame(updateCursor);
+}
+updateCursor();
+document.querySelectorAll('a, button, .btn, .skill-header, .project-card, .contact-email-btn, .contact-item').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+// Preloader
+document.addEventListener('DOMContentLoaded', () => {
+  const name = 'Gerald Kenosi';
+  const el = document.getElementById('preloader-text');
+  let i = 0;
+  function typeChar() {
+    if (i < name.length) {
+      el.innerHTML = name.slice(0, i + 1) + '<span class="cursor-blink"></span>';
+      i++;
+      setTimeout(typeChar, 80 + Math.random() * 40);
+    } else {
+      setTimeout(() => {
+        document.getElementById('preloader').classList.add('fade');
+        setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 800);
+      }, 600);
+    }
+  }
+  setTimeout(typeChar, 400);
+});
+
+// Scroll Progress
+const scrollProgress = document.getElementById('scrollProgress');
+const scrollPct = document.getElementById('scrollPct');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = Math.min((window.scrollY / h) * 100, 100);
+  scrollProgress.style.width = pct + '%';
+  scrollPct.textContent = '(' + Math.round(pct) + ')';
+});
+
+// Nav scroll + parallaxes
+const nav = document.getElementById('nav');
+const heroImage = document.querySelector('.hero-image');
+const revealPortrait = document.getElementById('revealPortrait');
+const careSection = document.getElementById('careSection');
+const careBg = document.querySelector('.care-bg');
+const expSection = document.getElementById('experience');
+const expBg = document.querySelector('.exp-bg');
+window.addEventListener('scroll', () => {
+  const s = window.scrollY;
+  const vh = window.innerHeight;
+  nav.classList.toggle('scrolled', s > 60);
+  heroImage.style.willChange = 'transform';
+  heroImage.style.transform = 'translateY(' + (s * -0.25) + 'px)';
+
+  // Reveal portrait horizontal parallax
+  if (revealPortrait) {
+    const rect = revealPortrait.getBoundingClientRect();
+    const center = rect.top + rect.height / 2;
+    const progress = 1 - (center / vh);
+    const clamped = Math.max(-0.3, Math.min(1.3, progress));
+    const tx = 120 - (clamped * 120);
+    revealPortrait.style.transform = 'translateX(' + tx + 'px)';
+    revealPortrait.style.opacity = Math.min(1, Math.max(0, 1 - Math.abs(clamped - 0.5) * 2.5));
+  }
+
+  // "What Companies Care About" horizontal parallax
+  if (careSection && careBg) {
+    const rect = careSection.getBoundingClientRect();
+    const progress = 1 - (rect.top / (rect.height + vh));
+    const clamped = Math.max(0, Math.min(1, progress));
+    careBg.style.transform = 'translateX(' + (clamped * -80) + 'px)';
+  }
+
+  // Experience parallax
+  if (expSection && expBg) {
+    const rect = expSection.getBoundingClientRect();
+    const progress = 1 - (rect.top / (rect.height + vh));
+    const clamped = Math.max(0, Math.min(1, progress));
+    expBg.style.transform = 'translateY(' + (clamped * -60) + 'px)';
+  }
+}, { passive: true });
+
+// Hamburger
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('hamburger').classList.toggle('active');
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('#navLinks a').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('hamburger').classList.remove('active');
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+// Split Text
+function splitText(selector) {
+  document.querySelectorAll(selector).forEach(h => {
+    const words = h.textContent.split(' ');
+    h.innerHTML = words.map(w => '<span class="split-word">' + w + '</span>').join(' ');
+  });
+}
+splitText('.section-title');
+
+// Intersection Observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      if (e.target.classList.contains('split-word')) {
+        e.target.classList.add('visible');
+      } else if (e.target.classList.contains('combo-circle')) {
+        e.target.classList.add('visible');
+      } else if (e.target.classList.contains('timeline-item')) {
+        e.target.classList.add('visible');
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      } else {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+// Observe split words
+document.querySelectorAll('.split-word').forEach(el => {
+  const delay = Array.from(el.parentElement.children).indexOf(el) * 40;
+  el.style.transitionDelay = delay + 'ms';
+  observer.observe(el);
+});
+
+// Observe combo circles
+document.querySelectorAll('.combo-circle').forEach(el => {
+  const delay = parseInt(el.dataset.delay) || 0;
+  el.style.transitionDelay = delay + 'ms';
+  el.style.transition = 'transform .6s cubic-bezier(.22,1,.36,1), opacity .6s';
+  observer.observe(el);
+});
+
+// Observe timeline items
+document.querySelectorAll('.timeline-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1)';
+  const delay = parseInt(el.dataset.delay) || 0;
+  el.style.transitionDelay = delay + 'ms';
+  observer.observe(el);
+});
+
+// Observe other elements
+document.querySelectorAll('.card, .reveal-statement, .reveal-sub, .reveal-portrait-wrap, .value-card, .value-point, .section-sub, .section-label, .phone-info').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1)';
+  observer.observe(el);
+});
+
+// Timeline line draw
+const timelineSection = document.getElementById('experience');
+if (timelineSection) {
+  const timelineLineInner = document.getElementById('timelineLine');
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const updateLine = () => {
+          const rect = timelineSection.getBoundingClientRect();
+          const scrolled = window.scrollY - rect.top + window.innerHeight * 0.3;
+          const total = rect.height;
+          const pct = Math.min(Math.max(scrolled / total, 0), 1) * 100;
+          timelineLineInner.style.height = pct + '%';
+        };
+        updateLine();
+        window.addEventListener('scroll', updateLine);
+      }
+    });
+  }, { threshold: 0 });
+  timelineObserver.observe(timelineSection);
+}
+
+// Skills accordion
+function toggleSkill(header) {
+  const group = header.parentElement;
+  const isOpen = group.classList.contains('open');
+  document.querySelectorAll('.skill-group').forEach(g => g.classList.remove('open'));
+  if (!isOpen) group.classList.add('open');
+}
+
+// 3D Tilt Cards
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = 'rotateY(' + (x * 8) + 'deg) rotateX(' + (-y * 8) + 'deg)';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+  });
+});
+
+// Magnetic buttons
+document.querySelectorAll('.btn, .contact-email-btn').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const rect = btn.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) * 0.15;
+    const y = (e.clientY - rect.top - rect.height / 2) * 0.15;
+    btn.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+  });
+});
+
+// Handle touch devices - hide custom cursor
+if ('ontouchstart' in window) {
+  cursor.style.display = 'none';
+}
+</script>
+</body>
+</html>

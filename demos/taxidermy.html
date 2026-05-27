@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Client Name Redacted] — Taxidermy Supply</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; background: #1a1410; color: #e8ddd0; line-height: 1.6; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+
+  .top-bar { background: #2a201a; color: #c89b3c; font-size: 0.75rem; padding: 6px 0; text-align: center; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid #3d3026; font-family: Arial, Helvetica, sans-serif; }
+
+  .header { background: #1a1410; padding: 18px 0; border-bottom: 2px solid #3d3026; }
+  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .header-logo { display: flex; align-items: center; gap: 14px; }
+  .logo-icon { width: 50px; height: 50px; background: #c89b3c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #1a1410; font-weight: bold; font-family: Arial, sans-serif; }
+  .logo-text { line-height: 1.2; }
+  .logo-text h1 { font-size: 1.5rem; color: #c89b3c; font-weight: normal; letter-spacing: 1px; }
+  .logo-text span { font-size: 0.7rem; color: #8a7a6a; letter-spacing: 3px; text-transform: uppercase; font-family: Arial, sans-serif; }
+  .header-contact { text-align: right; }
+  .header-contact .phone { font-size: 1.3rem; color: #c89b3c; letter-spacing: 1px; }
+  .header-contact .hours { font-size: 0.7rem; color: #8a7a6a; font-family: Arial, sans-serif; }
+
+  .nav { background: #231b16; border-bottom: 1px solid #3d3026; }
+  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: center; flex-wrap: wrap; }
+  .nav-inner a { padding: 12px 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: #c8b9a8; font-family: Arial, Helvetica, sans-serif; transition: color 0.3s; }
+  .nav-inner a:hover { color: #c89b3c; }
+
+  .hero { background: linear-gradient(rgba(26,20,16,0.7), rgba(26,20,16,0.7)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI2MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE0NDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjMjMxYjE2Ii8+PGRlZnM+PHBhdHRlcm4gaWQ9ImciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjMmEyMDFhIi8+PHJlY3QgeD0iMiIgeT0iMiIgd2lkdGg9Ijc2IiBoZWlnaHQ9Ijc2IiBmaWxsPSIjMjMxYjE2Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+') center/cover; min-height: 500px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
+  .hero-content { max-width: 800px; }
+  .hero-content h2 { font-size: 3.5rem; color: #c89b3c; margin-bottom: 16px; letter-spacing: 3px; font-weight: normal; }
+  .hero-content p { font-size: 1.15rem; color: #c8b9a8; max-width: 600px; margin: 0 auto 30px; font-family: Arial, Helvetica, sans-serif; }
+  .hero-btn { display: inline-block; background: #c89b3c; color: #1a1410; padding: 14px 40px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; font-family: Arial, sans-serif; transition: background 0.3s; }
+  .hero-btn:hover { background: #b8892a; }
+
+  .intro { max-width: 800px; margin: 0 auto; padding: 70px 20px 50px; text-align: center; }
+  .intro h3 { font-size: 2rem; color: #c89b3c; margin-bottom: 20px; font-weight: normal; letter-spacing: 1px; }
+  .intro p { color: #b0a090; font-size: 1rem; font-family: Arial, Helvetica, sans-serif; }
+
+  .section-title { text-align: center; font-size: 2rem; color: #c89b3c; margin-bottom: 50px; font-weight: normal; letter-spacing: 2px; }
+
+  .categories { max-width: 1200px; margin: 0 auto; padding: 0 20px 70px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+  .cat-card { background: #231b16; border: 1px solid #3d3026; padding: 30px 20px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+  .cat-card:hover { border-color: #c89b3c; transform: translateY(-4px); }
+  .cat-icon { font-size: 2.5rem; margin-bottom: 12px; }
+  .cat-card h4 { color: #c89b3c; font-size: 1.05rem; margin-bottom: 8px; letter-spacing: 1px; }
+  .cat-card p { color: #8a7a6a; font-size: 0.8rem; font-family: Arial, sans-serif; }
+
+  .heritage { background: #231b16; border-top: 2px solid #3d3026; border-bottom: 2px solid #3d3026; padding: 70px 20px; text-align: center; }
+  .heritage-inner { max-width: 800px; margin: 0 auto; }
+  .heritage-inner h3 { font-size: 2rem; color: #c89b3c; margin-bottom: 16px; font-weight: normal; letter-spacing: 2px; }
+  .heritage-inner .subtitle { color: #8a7a6a; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 24px; font-family: Arial, sans-serif; }
+  .heritage-inner p { color: #b0a090; font-size: 1rem; font-family: Arial, Helvetica, sans-serif; margin-bottom: 12px; }
+
+  .showcase { max-width: 1200px; margin: 0 auto; padding: 70px 20px; }
+  .showcase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+  .showcase-item { background: #231b16; border: 1px solid #3d3026; overflow: hidden; }
+  .showcase-img { height: 200px; background: #2a201a; display: flex; align-items: center; justify-content: center; color: #3d3026; font-size: 0.85rem; font-family: Arial, sans-serif; border-bottom: 1px solid #3d3026; }
+  .showcase-info { padding: 16px; }
+  .showcase-info h4 { color: #c89b3c; margin-bottom: 4px; }
+  .showcase-info p { color: #8a7a6a; font-size: 0.85rem; font-family: Arial, sans-serif; }
+
+  .gallery { background: #231b16; border-top: 2px solid #3d3026; padding: 70px 20px; }
+  .gallery-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .gallery-item { aspect-ratio: 1; background: #2a201a; border: 1px solid #3d3026; display: flex; align-items: center; justify-content: center; color: #3d3026; font-size: 0.75rem; font-family: Arial, sans-serif; }
+
+  .cta { padding: 70px 20px; text-align: center; background: linear-gradient(rgba(26,20,16,0.85), rgba(26,20,16,0.85)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI0MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE0NDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjMjMxYjE2Ii8+PGRlZnM+PHBhdHRlcm4gaWQ9ImgiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMmEyMDFhIi8+PHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjU0IiBoZWlnaHQ9IjU0IiBmaWxsPSIjMjMxYjE2Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2gpIi8+PC9zdmc+') center/cover; }
+  .cta-inner { max-width: 700px; margin: 0 auto; }
+  .cta-inner h3 { font-size: 2.2rem; color: #c89b3c; margin-bottom: 16px; font-weight: normal; }
+  .cta-inner p { color: #c8b9a8; font-family: Arial, sans-serif; margin-bottom: 30px; }
+  .cta-btn { display: inline-block; background: transparent; color: #c89b3c; border: 2px solid #c89b3c; padding: 14px 40px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; font-family: Arial, sans-serif; transition: all 0.3s; }
+  .cta-btn:hover { background: #c89b3c; color: #1a1410; }
+
+  .footer { background: #120e0b; border-top: 2px solid #3d3026; padding: 50px 20px 30px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; }
+  .footer-col h5 { color: #c89b3c; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; font-family: Arial, sans-serif; }
+  .footer-col p, .footer-col a { color: #6a5a4a; font-size: 0.8rem; font-family: Arial, sans-serif; display: block; margin-bottom: 6px; }
+  .footer-col a:hover { color: #c89b3c; }
+  .footer-bottom { max-width: 1200px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid #2a201a; text-align: center; color: #4a3a2a; font-size: 0.7rem; font-family: Arial, sans-serif; letter-spacing: 1px; }
+
+  @media (max-width: 768px) {
+    .header-inner { flex-direction: column; text-align: center; gap: 12px; }
+    .header-contact { text-align: center; }
+    .hero-content h2 { font-size: 2.2rem; }
+    .nav-inner a { padding: 10px 14px; font-size: 0.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<div style="background:#C89B3C;color:#000;text-align:center;padding:10px 16px;font-size:13px;font-weight:600;font-family:sans-serif">Demo website — developed as a proposal submission. Not accepted by client.</div>
+
+<div class="top-bar">Est. 20XX &nbsp;|&nbsp; A [Brand Name] Company</div>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-logo">
+      <div class="logo-icon">V</div>
+      <div class="logo-text">
+        <h1>[Client Name Redacted] — Taxidermy Supply</h1>
+        <span>Everything for the Taxidermist</span>
+      </div>
+    </div>
+    <div class="header-contact">
+      <div class="phone">1-800-000-0000</div>
+      <div class="hours">Mon–Fri 8:00 am – 5:00 pm</div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#">Home</a>
+    <a href="#">Shop All</a>
+    <a href="#">Forms</a>
+    <a href="#">Glass Eyes</a>
+    <a href="#">Tools &amp; Supplies</a>
+    <a href="#">Tanning</a>
+    <a href="#">New Items</a>
+    <a href="#">Sale</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h2>Master the Craft</h2>
+    <p>Premium taxidermy supplies for professionals and hobbyists. [Client Name Redacted] has been the trusted source for quality materials since 20XX.</p>
+    <a href="#" class="hero-btn">Shop Our Catalog</a>
+  </div>
+</section>
+
+<section class="intro">
+  <h3>Trusted By Taxidermists Nationwide</h3>
+  <p>For Multiple Years, [Client Name Redacted] has supplied taxidermists with the finest forms, eyes, tools, and tanning supplies. We are committed to the craft and dedicated to helping you create your best work.</p>
+</section>
+
+<section>
+  <h3 class="section-title">Shop by Category</h3>
+  <div class="categories">
+    <div class="cat-card">
+      <div class="cat-icon">🦌</div>
+      <h4>Taxidermy Forms</h4>
+      <p>Whitetail, elk, turkey, fish, and more — premium mannikins for every species.</p>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">👁️</div>
+      <h4>Glass Eyes</h4>
+      <p>Hand-painted glass eyes in every size and color. Realistic detail guaranteed.</p>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🔧</div>
+      <h4>Tools &amp; Supplies</h4>
+      <p>Knives, scalpels, wire, clay, and everything in between for the workshop.</p>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🧴</div>
+      <h4>Tanning</h4>
+      <p>Professional-grade tanning oils, salts, and leather conditioners.</p>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🪶</div>
+      <h4>Feathers &amp; Furs</h4>
+      <p>Natural feathers, furs, and hides for finishing touches and habitat work.</p>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">📦</div>
+      <h4>Starter Kits</h4>
+      <p>Everything a beginner needs. Curated kits for birds, fish, and small game.</p>
+    </div>
+  </div>
+</section>
+
+<section class="heritage">
+  <div class="heritage-inner">
+    <h3>A Legacy of Quality</h3>
+    <div class="subtitle">Since 20XX</div>
+    <p>Founded in 20XX, [Client Name Redacted] began as a small family operation with a passion for the art of taxidermy. Over Multiple Years, we have grown into one of the largest taxidermy supply houses in the country — yet we remain committed to the personal service and quality that built this business.</p>
+    <p>From our facility at 123 Business Park Drive, City, State 00000, we ship thousands of products every week to taxidermists in all 50 states and beyond. Every order is handled with care by people who share your passion for the craft.</p>
+  </div>
+</section>
+
+<section class="showcase">
+  <h3 class="section-title">Featured Products</h3>
+  <div class="showcase-grid">
+    <div class="showcase-item">
+      <div class="showcase-img">[ Product Image ]</div>
+      <div class="showcase-info">
+        <h4>Premium Whitetail Deer Form</h4>
+        <p>High-density polyurethane. Available in 12 poses.</p>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="showcase-img">[ Product Image ]</div>
+      <div class="showcase-info">
+        <h4>Hand-Painted Glass Eyes — 18mm</h4>
+        <p>Lifelike detail with natural vein patterns.</p>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="showcase-img">[ Product Image ]</div>
+      <div class="showcase-info">
+        <h4>Professional Tanning Oil &amp; Salt Kit</h4>
+        <p>Complete kit for 3-5 hides. Includes instructions.</p>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="showcase-img">[ Product Image ]</div>
+      <div class="showcase-info">
+        <h4>Bird Mounting Starter Set</h4>
+        <p>Tools, wire, clay, and eyes for small to medium birds.</p>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="showcase-img">[ Product Image ]</div>
+      <div class="showcase-info">
+        <h4>Fish Mounting Forms — Trout Series</h4>
+        <p>Lightweight, carvable foam forms in multiple sizes.</p>
+      </div>
+    </div>
+    <div class="showcase-item">
+      <div class="showcase-img">[ Product Image ]</div>
+      <div class="showcase-info">
+        <h4>Fleshing Knife — Carbon Steel</h4>
+        <p>Forged carbon steel blade with ergonomic handle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <h3 class="section-title">From Our Customers</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item">[ Photo ]</div>
+    <div class="gallery-item">[ Photo ]</div>
+    <div class="gallery-item">[ Photo ]</div>
+    <div class="gallery-item">[ Photo ]</div>
+    <div class="gallery-item">[ Photo ]</div>
+    <div class="gallery-item">[ Photo ]</div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-inner">
+    <h3>Ready to Stock Your Workshop?</h3>
+    <p>Join tens of thousands of satisfied taxidermists who trust [Client Name Redacted] for their supplies. Call us at 1-800-000-0000 or browse our full catalog online.</p>
+    <a href="#" class="cta-btn">Browse All Products</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h5>[Client Name Redacted]</h5>
+      <p>123 Business Park Drive<br>City, State 00000</p>
+      <p>1-800-000-0000</p>
+      <p>Mon–Fri 8:00 am – 5:00 pm</p>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <a href="#">All Products</a>
+      <a href="#">Forms &amp; Manikins</a>
+      <a href="#">Glass Eyes</a>
+      <a href="#">Tools</a>
+      <a href="#">Tanning Supplies</a>
+      <a href="#">Sale Items</a>
+    </div>
+    <div class="footer-col">
+      <h5>Customer Service</h5>
+      <a href="#">Order Status</a>
+      <a href="#">Shipping &amp; Returns</a>
+      <a href="#">FAQ</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Catalog Request</a>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <a href="#">Our Story</a>
+      <a href="#">Careers</a>
+      <a href="#">Wholesale</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 20XX [Client Name Redacted] — Taxidermy Supply. A [Brand Name] Company. All Rights Reserved.
+  </div>
+</footer>
+
+</body>
+</html>
