@@ -179,41 +179,7 @@ nav.scrolled{background:rgba(7,7,7,0.7);backdrop-filter:blur(24px);-webkit-backd
 .timeline-desc li{margin-bottom:4px;list-style:none;padding-left:14px;position:relative}
 .timeline-desc li::before{content:'—';position:absolute;left:0;color:var(--gold);opacity:.5}
 
-/* Projects */
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;margin-top:48px}
-.project-card{border-radius:var(--radius);overflow:hidden;background:var(--surface);border:1px solid var(--border);perspective:1000px;cursor:pointer;transition:transform .4s cubic-bezier(.22,1,.36,1)}
-.project-card-inner{transform-style:preserve-3d;transition:transform .2s}
-.project-thumb{width:100%;aspect-ratio:16/10;overflow:hidden;position:relative;background:var(--surface2)}
-.project-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.project-card:hover .project-thumb img{transform:scale(1.05)}
-.thumb-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;letter-spacing:-.04em;position:relative;transition:transform .6s}
-.project-card:hover .thumb-bg{transform:scale(1.05)}
-.thumb-bg .initials{position:relative;z-index:1}
-.thumb-overlay{position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(0,0,0,0.3));z-index:0}
-.thumb-legiscore{background:linear-gradient(135deg,#0a1628,#1a2744,#2a3a5c)}
-.thumb-salso{background:linear-gradient(135deg,#b45309,#d97706,#f59e0b)}
-.thumb-pet{background:linear-gradient(135deg,#065f46,#059669,#34d399)}
-.thumb-plumb{background:linear-gradient(135deg,#1e3a5f,#2563eb,#60a5fa)}
-.thumb-auto{background:linear-gradient(135deg,#7f1d1d,#dc2626,#f87171)}
-.thumb-radio{background:linear-gradient(135deg,#134e4a,#0d9488,#5eead4)}
-.thumb-taxi{background:linear-gradient(135deg,#3d2e1e,#6b4f2a,#a0773e)}
-.project-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,7,0.8),transparent);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:16px}
-.project-card:hover .project-overlay{opacity:1}
-.project-overlay span{font-size:12px;color:var(--gold);font-weight:600;letter-spacing:1px}
-.project-info{padding:20px 20px 22px}
-.project-info h3{font-size:14px;font-weight:600;margin-bottom:4px}
-.project-info p{font-size:12px;color:var(--muted);line-height:1.6}
-.project-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);padding:3px 10px;border-radius:4px;margin-bottom:8px}
 
-/* Phone Frame */
-.phone-section{padding:80px 0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.phone-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.phone-frame{width:300px;height:620px;border-radius:40px;background:#101010;border:3px solid #2a2a2a;padding:8px;box-shadow:0 24px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04);position:relative;margin:0 auto}
-.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:24px;background:#101010;border-radius:0 0 16px 16px;z-index:3}
-.phone-screen{width:100%;height:100%;border-radius:32px;overflow:hidden;background:#f8f8f8;position:relative}
-.phone-screen iframe{width:100%;height:100%;border:none}
-.phone-info h2{margin-bottom:16px}
-.phone-info p{color:var(--muted);margin-bottom:24px}
 
 /* Value Proposal */
 .value-card{background:linear-gradient(135deg,var(--surface),rgba(200,155,60,0.04));border:1px solid rgba(200,155,60,0.1);border-radius:var(--radius);padding:48px;max-width:800px;margin:40px auto 0}
@@ -250,8 +216,6 @@ footer .version{display:inline-block;margin-top:8px;font-size:10px;letter-spacin
 @media(max-width:1024px){
   .combo-grid{grid-template-columns:1fr;gap:48px}
   .combo-visual{height:400px;max-width:500px;margin:0 auto}
-  .phone-layout{grid-template-columns:1fr;gap:40px;text-align:center}
-  .phone-frame{margin:0 auto}
   .skills-inner{grid-template-columns:1fr;gap:32px}
   .skills-left{position:static}
   .reveal-grid{grid-template-columns:1fr;gap:40px;text-align:center}
@@ -315,9 +279,8 @@ footer .version{display:inline-block;margin-top:8px;font-size:10px;letter-spacin
   <ul class="nav-links" id="navLinks">
     <li><a href="#approach">Approach</a></li>
     <li><a href="#offer">What I Offer</a></li>
-    <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#work">Work</a></li>
+    <li><a href="#offer">What I Offer</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
 </nav>
@@ -338,7 +301,7 @@ footer .version{display:inline-block;margin-top:8px;font-size:10px;letter-spacin
       <p>I combine legal knowledge, AI-assisted productivity systems, and digital development to help businesses improve efficiency, automate repetitive work, and modernise operations.</p>
       <div class="hero-btns">
         <a href="#approach" class="btn btn-primary">Explore My Approach</a>
-        <a href="#work" class="btn btn-outline">View My Work</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
       </div>
     </div>
   </div>
@@ -608,145 +571,7 @@ footer .version{display:inline-block;margin-top:8px;font-size:10px;letter-spacin
   </div>
 </section>
 
-<section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)" id="work">
-  <div class="container">
-    <span class="section-label">Projects</span>
-    <h2 class="section-title">Websites &amp; Digital Work</h2>
-    <p class="section-sub">Live sites, demo concepts, and client proposals that showcase my development capabilities.</p>
 
-    <div class="projects-grid">
-
-      <a href="https://legiscore.co.za" target="_blank" rel="noopener" class="project-card">
-        <div class="project-card-inner">
-          <div class="project-thumb">
-            <div class="thumb-bg thumb-legiscore"><div class="thumb-overlay"></div><span class="initials" style="color:var(--gold);text-shadow:0 2px 20px rgba(200,155,60,0.3)">LC</span></div>
-            <div class="project-overlay"><span>Visit Site →</span></div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag">Live Site</span>
-            <h3>LegisCore Legal Consultants</h3>
-            <p>Professional legal consulting website built and managed for my own practice.</p>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://salso.org.za" target="_blank" rel="noopener" class="project-card">
-        <div class="project-card-inner">
-          <div class="project-thumb">
-            <div class="thumb-bg thumb-salso"><div class="thumb-overlay"></div><span class="initials" style="color:#fff">SA</span></div>
-            <div class="project-overlay"><span>Visit Site →</span></div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag">Live Site</span>
-            <h3>South African Learner Support Organisation</h3>
-            <p>Organisational website developed and managed since the organisation's founding.</p>
-          </div>
-        </div>
-      </a>
-
-      <a href="demos/pet-spa.html" target="_blank" rel="noopener" class="project-card">
-        <div class="project-card-inner">
-          <div class="project-thumb">
-            <div class="thumb-bg thumb-pet"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🐾</span></div>
-            <div class="project-overlay"><span>View Demo →</span></div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag">Client Demo</span>
-            <h3>Pet Spa Website <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
-            <p>Professional pet grooming service website. Developed as a proposal; not accepted.</p>
-          </div>
-        </div>
-      </a>
-
-      <a href="demos/plumbing.html" target="_blank" rel="noopener" class="project-card">
-        <div class="project-card-inner">
-          <div class="project-thumb">
-            <div class="thumb-bg thumb-plumb"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🔧</span></div>
-            <div class="project-overlay"><span>View Demo →</span></div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag">Client Demo</span>
-            <h3>Plumbing &amp; HVAC Service <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
-            <p>Emergency home services website with 24/7 booking. Developed as a proposal; not accepted.</p>
-          </div>
-        </div>
-      </a>
-
-      <a href="demos/auto-parts.html" target="_blank" rel="noopener" class="project-card">
-        <div class="project-card-inner">
-          <div class="project-thumb">
-            <div class="thumb-bg thumb-auto"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🚗</span></div>
-            <div class="project-overlay"><span>View Demo →</span></div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag">Client Demo</span>
-            <h3>Auto Parts Store <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
-            <p>Family-owned auto parts e-commerce site. Developed as a proposal; not accepted.</p>
-          </div>
-        </div>
-      </a>
-
-      <a href="demos/radiology.html" target="_blank" rel="noopener" class="project-card">
-        <div class="project-card-inner">
-          <div class="project-thumb">
-            <div class="thumb-bg thumb-radio"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🩻</span></div>
-            <div class="project-overlay"><span>View Demo →</span></div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag">Client Demo</span>
-            <h3>Radiology Supply Company <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
-            <p>Medical imaging supply catalog website. Developed as a proposal; not accepted.</p>
-          </div>
-        </div>
-      </a>
-
-      <a href="demos/taxidermy.html" target="_blank" rel="noopener" class="project-card">
-        <div class="project-card-inner">
-          <div class="project-thumb">
-            <div class="thumb-bg thumb-taxi"><div class="thumb-overlay"></div><span class="initials" style="color:#fff;font-size:28px">🦌</span></div>
-            <div class="project-overlay"><span>View Demo →</span></div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag">Client Demo</span>
-            <h3>Taxidermy Supply Store <span style="color:var(--muted);font-weight:400">— [Client Name Redacted]</span></h3>
-            <p>Heritage taxidermy supply catalog. Developed as a proposal; not accepted.</p>
-          </div>
-        </div>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<section class="phone-section" id="movetrack">
-  <div class="container">
-    <div class="phone-layout">
-      <div class="phone-info">
-        <span class="section-label">Product Demo</span>
-        <h2 class="section-title">MoveTrack Command Center</h2>
-        <p>A premium move tracking system for removals companies — reducing uncertainty, complaints, and operational blind spots through real-time tracking, inventory proof, and delivery confirmation.</p>
-        <div class="hero-btns">
-          <a href="demos/movetrack.html" target="_blank" rel="noopener" class="btn btn-primary">View Full Demo →</a>
-          <span class="btn btn-outline" style="cursor:default;opacity:.6">Interactive Preview</span>
-        </div>
-        <div style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:400px">
-          <div class="card" style="padding:16px;text-align:center"><b style="font-size:18px;color:var(--gold)">3</b><p style="font-size:11px;margin-top:4px">App Interfaces</p></div>
-          <div class="card" style="padding:16px;text-align:center"><b style="font-size:18px;color:var(--gold)">12</b><p style="font-size:11px;margin-top:4px">Interactive Screens</p></div>
-          <div class="card" style="padding:16px;text-align:center"><b style="font-size:18px;color:var(--gold)">1</b><p style="font-size:11px;margin-top:4px">Connected System</p></div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <iframe src="demos/movetrack-mobile.html" title="MoveTrack Mobile Preview" loading="lazy"></iframe>
-          </div>
-        </div>
-        <span style="font-size:11px;color:var(--muted);letter-spacing:1px">LIVE PREVIEW — INTERACTIVE</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="section">
   <div class="container" style="text-align:center">
