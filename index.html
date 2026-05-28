@@ -280,7 +280,6 @@ footer .version{display:inline-block;margin-top:8px;font-size:10px;letter-spacin
     <li><a href="#approach">Approach</a></li>
     <li><a href="#offer">What I Offer</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#offer">What I Offer</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
 </nav>
@@ -619,6 +618,7 @@ footer .version{display:inline-block;margin-top:8px;font-size:10px;letter-spacin
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download CV (PDF)
     </a>
+    <p style="color:var(--muted);font-size:14px;margin-top:16px">I can also walk you through examples of my previous work during a brief call — just <a href="#contact" style="color:var(--gold);text-decoration:underline">get in touch</a>.</p>
   </div>
 </section>
 
@@ -647,7 +647,7 @@ function updateCursor() {
   requestAnimationFrame(updateCursor);
 }
 updateCursor();
-document.querySelectorAll('a, button, .btn, .skill-header, .project-card, .contact-email-btn, .contact-item').forEach(el => {
+document.querySelectorAll('a, button, .btn, .skill-header, .contact-email-btn, .contact-item').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
