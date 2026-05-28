@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Yaka — Mobile Demo</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}
+
+/* Phone Frame */
+.phone{width:375px;height:812px;background:#000;border-radius:48px;padding:16px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 0 2px #333;overflow:hidden}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:150px;height:30px;background:#000;border-radius:0 0 18px 18px;z-index:100;display:flex;align-items:center;justify-content:center;gap:8px}
+.phone-notch .cam{width:10px;height:10px;border-radius:50%;background:#1a1a2e;border:2px solid #333}
+.phone-notch .speaker{width:50px;height:4px;border-radius:2px;background:#222}
+.phone-screen{width:100%;height:100%;border-radius:36px;overflow:hidden;background:#f5f5f5;position:relative}
+
+/* Phone bottom indicator */
+.phone-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(0,0,0,0.2);z-index:99}
+
+/* Family Yaka Colors */
+:root{--primary:#5D4037;--primary-light:#795548;--accent:#D4A574;--bg:#FFF8F0;--surface:#fff;--text:#3E2723;--text-muted:#8D6E63;--border:#EFEBE9;--radius:12px;--gold:#C89B3C}
+
+/* App */
+.app{width:100%;height:100%;border-radius:36px;overflow:hidden;display:flex;flex-direction:column;background:var(--bg);position:relative}
+
+/* Screens */
+.screen{display:none;flex-direction:column;height:100%;width:100%;position:absolute;top:0;left:0;background:var(--bg)}
+.screen.active{display:flex;z-index:10}
+.screen-content{flex:1;overflow-y:auto;padding:0 0 80px;-webkit-overflow-scrolling:touch}
+.screen-content::-webkit-scrollbar{width:3px}
+.screen-content::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px}
+
+/* Splash */
+.splash{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:linear-gradient(160deg,#3E2723,#5D4037,#4E342E);position:absolute;top:0;left:0;right:0;bottom:0;z-index:100;transition:opacity .6s}
+.splash.fade-out{opacity:0;pointer-events:none}
+.splash-icon{width:90px;height:90px;background:rgba(255,255,255,0.1);border:2px solid rgba(212,165,116,0.3);border-radius:24px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:44px}
+.splash h1{color:#fff;font-size:28px;font-weight:700;letter-spacing:-.5px}
+.splash p{color:rgba(212,165,116,0.8);font-size:14px;margin-top:4px}
+.splash-loader{margin-top:40px;width:120px;height:3px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden}
+.splash-loader-inner{height:100%;background:var(--accent);border-radius:2px;animation:splashLoad 2.5s ease-in-out}
+@keyframes splashLoad{0%{width:0}100%{width:100%}}
+
+/* Onboarding */
+.onboarding{display:none;flex-direction:column;height:100%;background:var(--bg);position:absolute;top:0;left:0;right:0;bottom:0;z-index:90}
+.onboarding.show{display:flex}
+.onb-slide{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px 40px;text-align:center}
+.onb-icon{width:100px;height:100px;border-radius:28px;display:flex;align-items:center;justify-content:center;font-size:48px;margin-bottom:28px;background:rgba(212,165,116,0.12)}
+.onb-slide h2{font-size:24px;font-weight:700;color:var(--text);margin-bottom:12px;letter-spacing:-.3px}
+.onb-slide p{font-size:14px;color:var(--text-muted);line-height:1.7;max-width:300px}
+.onb-dots{display:flex;gap:8px;justify-content:center;padding:20px 0}
+.onb-dot{width:8px;height:8px;border-radius:50%;background:#ccc;transition:all .3s}
+.onb-dot.active{width:28px;border-radius:4px;background:var(--accent)}
+.onb-nav{display:flex;justify-content:space-between;padding:0 32px 40px}
+.onb-nav button{padding:12px 24px;border-radius:10px;border:none;font-weight:600;font-size:14px;cursor:pointer;transition:transform .2s}
+.onb-nav button:active{transform:scale(0.97)}
+.onb-skip{background:transparent;color:var(--text-muted)}
+.onb-next{background:var(--primary);color:#fff}
+.onb-get-started{display:none;background:var(--accent);color:#fff;padding:12px 32px;border-radius:10px;border:none;font-weight:700;font-size:14px;cursor:pointer;margin:0 auto 40px;transition:transform .2s}
+.onb-get-started:active{transform:scale(0.97)}
+.onb-get-started.show{display:block}
+
+/* Auth */
+.auth-screen{display:none;flex-direction:column;height:100%;background:linear-gradient(160deg,#3E2723,#5D4037);position:absolute;top:0;left:0;right:0;bottom:0;z-index:80}
+.auth-screen.show{display:flex}
+.auth-header{padding:80px 32px 32px;text-align:center;color:#fff}
+.auth-header .auth-icon{font-size:48px;margin-bottom:16px}
+.auth-header h2{font-size:24px;font-weight:700}
+.auth-header p{font-size:13px;opacity:.7;margin-top:4px}
+.auth-form{padding:0 32px 40px;flex:1}
+.auth-field{width:100%;padding:14px 16px;border-radius:10px;border:none;background:rgba(255,255,255,0.1);color:#fff;font-size:14px;margin-bottom:12px;outline:none;transition:background .3s}
+.auth-field::placeholder{color:rgba(255,255,255,0.4)}
+.auth-field:focus{background:rgba(255,255,255,0.18)}
+.auth-btn{width:100%;padding:14px;border-radius:10px;border:none;background:var(--accent);color:#3E2723;font-size:15px;font-weight:700;cursor:pointer;transition:transform .2s;margin-top:8px}
+.auth-btn:active{transform:scale(0.97)}
+.auth-switch{text-align:center;margin-top:16px;color:rgba(255,255,255,0.6);font-size:13px}
+.auth-switch a{color:var(--accent);font-weight:600;cursor:pointer}
+.auth-creds{background:rgba(255,255,255,0.08);border-radius:8px;padding:10px 14px;margin-top:16px;width:100%;font-size:11px;color:rgba(255,255,255,0.55);text-align:center;line-height:1.6}
+.auth-creds strong{color:rgba(255,255,255,0.8)}
+
+/* Bottom Nav */
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:70px;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;padding:6px 0;z-index:50;border-radius:0 0 36px 36px;box-shadow:0 -2px 12px rgba(0,0,0,0.04)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 12px;border-radius:8px;transition:background .3s;border:none;background:none;font-family:inherit}
+.nav-item svg{width:22px;height:22px;stroke:#999;fill:none;transition:stroke .3s}
+.nav-item span{font-size:10px;font-weight:600;color:#999;transition:color .3s}
+.nav-item.active svg{stroke:var(--primary)}.nav-item.active span{color:var(--primary)}
+.nav-item:hover{background:rgba(93,64,55,0.04)}
+
+/* Tree Screen */
+.tree-header{background:linear-gradient(135deg,#5D4037,#3E2723);padding:48px 20px 20px;border-radius:0 0 24px 24px;color:#fff;text-align:center}
+.tree-header h2{font-size:20px;font-weight:700;margin-bottom:2px}
+.tree-header p{font-size:12px;opacity:.7}
+.tree-canvas{flex:1;padding:16px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.tree-svg{width:100%;height:300px}
+.tree-controls{display:flex;gap:8px;justify-content:center;padding:8px;position:absolute;bottom:80px;left:0;right:0;z-index:10}
+.tree-ctrl-btn{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.08);font-size:16px;color:var(--text);transition:transform .2s}
+.tree-ctrl-btn:active{transform:scale(0.92)}
+
+/* Tree Node */
+.tree-node{position:absolute;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;border:3px solid rgba(255,255,255,0.4);box-shadow:0 4px 12px rgba(0,0,0,0.15);cursor:pointer;transition:transform .3s}
+.tree-node:active{transform:scale(1.1)}
+.tree-node.male{background:#5C6BC0}
+.tree-node.female{background:#EC407A}
+.tree-label{position:absolute;font-size:9px;font-weight:600;color:var(--text-muted);text-align:center;width:80px;left:50%;transform:translateX(-50%)}
+.tree-connector{position:absolute;width:2px;background:#D7CCC8;z-index:0}
+
+/* Events Screen */
+.events-header{background:linear-gradient(135deg,#5D4037,#3E2723);padding:48px 20px 20px;border-radius:0 0 24px 24px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.events-header h2{font-size:20px;font-weight:700}
+.events-header .add-event{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.events-list{padding:16px 20px}
+.event-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;display:flex;gap:14px;transition:transform .2s;cursor:default}
+.event-card:active{transform:scale(0.98)}
+.event-date{text-align:center;min-width:48px}
+.event-date .day{font-size:20px;font-weight:700;color:var(--primary);line-height:1}
+.event-date .month{font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:600}
+.event-info{flex:1}
+.event-info .e-title{font-size:14px;font-weight:600;color:var(--text)}
+.event-info .e-desc{font-size:12px;color:var(--text-muted);margin-top:2px;line-height:1.5}
+.event-info .e-loc{font-size:11px;color:var(--text-muted);margin-top:4px;display:flex;align-items:center;gap:4px}
+
+/* Rituals Screen */
+.rituals-header{background:linear-gradient(135deg,#5D4037,#3E2723);padding:48px 20px 20px;border-radius:0 0 24px 24px;color:#fff;text-align:center}
+.rituals-header h2{font-size:20px;font-weight:700;margin-bottom:2px}
+.rituals-header p{font-size:12px;opacity:.7}
+.rituals-grid{padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ritual-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;transition:transform .2s;cursor:default}
+.ritual-card:active{transform:scale(0.97)}
+.ritual-card .r-icon{font-size:28px;margin-bottom:8px}
+.ritual-card .r-name{font-size:12px;font-weight:600;color:var(--text)}
+.ritual-card .r-desc{font-size:10px;color:var(--text-muted);margin-top:2px;line-height:1.4}
+
+/* Profile Screen (Yaka) */
+.yaka-profile-header{background:linear-gradient(135deg,#5D4037,#3E2723);padding:48px 20px 28px;border-radius:0 0 24px 24px;color:#fff;text-align:center}
+.yaka-profile-avatar{width:72px;height:72px;border-radius:50%;margin:0 auto 12px;border:3px solid rgba(212,165,116,0.4);display:flex;align-items:center;justify-content:center;font-size:32px}
+.yaka-profile-name{font-size:18px;font-weight:700}
+.yaka-profile-tier{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--accent);color:#3E2723;font-size:11px;font-weight:700;margin-top:6px}
+.yaka-profile-menu{padding:16px 20px}
+.yaka-profile-item{display:flex;align-items:center;gap:14px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:transform .2s}
+.yaka-profile-item:active{transform:scale(0.98)}
+.yaka-profile-item .yp-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.yaka-profile-item .yp-info{flex:1}
+.yaka-profile-item .yp-title{font-size:13px;font-weight:600;color:var(--text)}
+.yaka-profile-item .yp-sub{font-size:11px;color:var(--text-muted)}
+.yaka-profile-item .yp-arrow{color:#ccc;font-size:14px;font-weight:700}
+
+/* App version */
+.app-version{position:absolute;bottom:80px;left:0;right:0;text-align:center;font-size:10px;color:#bbb;z-index:5}
+
+@media(max-width:480px){
+  body{overflow:auto;padding:20px}
+  .phone{width:100%;max-width:375px;height:90vh;max-height:812px;border-radius:24px;padding:8px}
+  .phone-screen{border-radius:18px}
+  .bottom-nav{border-radius:0 0 18px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="phone-notch"><div class="speaker"></div><div class="cam"></div></div>
+  <div class="phone-screen">
+    <!-- Splash -->
+    <div class="splash" id="splash">
+      <div class="splash-icon">&#127963;</div>
+      <h1>Family Yaka</h1>
+      <p>Your Family Tree, Connected</p>
+      <div class="splash-loader"><div class="splash-loader-inner"></div></div>
+    </div>
+
+    <!-- Onboarding -->
+    <div class="onboarding" id="onboarding">
+      <div class="onb-slide" id="onbSlide">
+        <div class="onb-icon" id="onbIcon">&#127968;</div>
+        <h2 id="onbTitle">Welcome to Family Yaka</h2>
+        <p id="onbDesc">Build, explore, and preserve your family tree. Connect with relatives and discover your heritage.</p>
+      </div>
+      <div class="onb-dots" id="onbDots">
+        <span class="onb-dot active"></span>
+        <span class="onb-dot"></span>
+        <span class="onb-dot"></span>
+        <span class="onb-dot"></span>
+        <span class="onb-dot"></span>
+        <span class="onb-dot"></span>
+      </div>
+      <div class="onb-nav">
+        <button class="onb-skip" onclick="skipOnboarding()">Skip</button>
+        <button class="onb-next" id="onbNext" onclick="nextOnboarding()">Next</button>
+      </div>
+      <button class="onb-get-started" id="onbGetStarted" onclick="goToAuth()">Get Started</button>
+    </div>
+
+    <!-- Auth -->
+    <div class="auth-screen" id="authScreen">
+      <div class="auth-header">
+        <div class="auth-icon">&#127963;</div>
+        <h2>Welcome Back</h2>
+        <p>Sign in to your family tree</p>
+      </div>
+      <div class="auth-form">
+        <input class="auth-field" type="email" placeholder="Email address" id="authEmail" value="user@familyyaka.com">
+        <input class="auth-field" type="password" placeholder="Password" id="authPass" value="••••••••">
+        <button class="auth-btn" onclick="authLogin()">Sign In</button>
+        <div class="auth-switch">Don't have an account? <a onclick="alert('Registration form would open')">Register</a></div>
+        <div class="auth-creds"><strong>Demo Credentials:</strong><br>Email: user@familyyaka.com / Password: demo123</div>
+      </div>
+    </div>
+
+    <!-- Tree -->
+    <div class="screen active" id="screenTree">
+      <div class="screen-content">
+        <div class="tree-header">
+          <h2>&#127963; The Kenosi Family Tree</h2>
+          <p>5 generations &bull; 28 members</p>
+        </div>
+        <div class="tree-canvas">
+          <svg class="tree-svg" viewBox="0 0 340 280">
+            <!-- Connection lines -->
+            <line x1="170" y1="10" x2="170" y2="40" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="170" y1="40" x2="170" y2="55" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="170" y1="55" x2="120" y2="80" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="170" y1="55" x2="220" y2="80" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="120" y1="80" x2="85" y2="105" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="120" y1="80" x2="155" y2="105" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="220" y1="80" x2="200" y2="105" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="220" y1="80" x2="250" y2="105" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="85" y1="105" x2="70" y2="130" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="85" y1="105" x2="110" y2="130" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="155" y1="105" x2="140" y2="130" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="155" y1="105" x2="175" y2="130" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="200" y1="105" x2="195" y2="130" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="250" y1="105" x2="240" y2="130" stroke="#D7CCC8" stroke-width="2"/>
+            <line x1="250" y1="105" x2="270" y2="130" stroke="#D7CCC8" stroke-width="2"/>
+            <!-- Nodes - Generation 1 -->
+            <circle cx="170" cy="10" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="170" y="14" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">TS</text>
+            <!-- Nodes - Generation 2 -->
+            <circle cx="170" cy="40" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="170" y="44" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">MK</text>
+            <!-- Nodes - Generation 3 -->
+            <circle cx="120" cy="80" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="120" y="84" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">PK</text>
+            <circle cx="220" cy="80" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="220" y="84" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">AK</text>
+            <!-- Nodes - Generation 4 -->
+            <circle cx="85" cy="105" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="85" y="109" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">TK</text>
+            <circle cx="155" cy="105" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="155" y="109" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">LK</text>
+            <circle cx="200" cy="105" r="14" fill="#FFC107" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"/>
+            <text x="200" y="109" text-anchor="middle" fill="#3E2723" font-size="9" font-weight="700">GK</text>
+            <circle cx="250" cy="105" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="250" y="109" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">MK</text>
+            <!-- Nodes - Generation 5 -->
+            <circle cx="70" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="70" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">AK</text>
+            <circle cx="110" cy="130" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="110" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">BK</text>
+            <circle cx="140" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="140" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">KK</text>
+            <circle cx="175" cy="130" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="175" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">NK</text>
+            <circle cx="195" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="195" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">SK</text>
+            <circle cx="240" cy="130" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="240" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">JK</text>
+            <circle cx="270" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <text x="270" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">DK</text>
+            <!-- Labels -->
+            <text x="170" y="156" text-anchor="middle" fill="#8D6E63" font-size="8" font-weight="600">Great-Grandparents</text>
+            <text x="170" y="166" text-anchor="middle" fill="#8D6E63" font-size="8" font-weight="600">Grandparents &bull; Parents &bull; You</text>
+          </svg>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item active" onclick="switchYaka('tree')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span>Tree</span></button>
+        <button class="nav-item" onclick="switchYaka('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Events</span></button>
+        <button class="nav-item" onclick="switchYaka('rituals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Rituals</span></button>
+        <button class="nav-item" onclick="switchYaka('yprofile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></button>
+      </div>
+    </div>
+
+    <!-- Events -->
+    <div class="screen" id="screenEvents">
+      <div class="screen-content">
+        <div class="events-header">
+          <h2>Family Events</h2>
+          <button class="add-event" onclick="alert('Add Event')">+</button>
+        </div>
+        <div class="events-list">
+          <div class="event-card">
+            <div class="event-date"><div class="day">15</div><div class="month">Jun</div></div>
+            <div class="event-info">
+              <div class="e-title">Kenosi Family Reunion</div>
+              <div class="e-desc">Annual gathering at the family homestead. All relatives welcome. Bring a dish to share.</div>
+              <div class="e-loc">&#128205; Soweto, Johannesburg</div>
+            </div>
+          </div>
+          <div class="event-card">
+            <div class="event-date"><div class="day">22</div><div class="month">Jun</div></div>
+            <div class="event-info">
+              <div class="e-title">Grandmother's Memorial</div>
+              <div class="e-desc">Memorial service marking 5 years since grandmother's passing.</div>
+              <div class="e-loc">&#128205; Avalon Cemetery</div>
+            </div>
+          </div>
+          <div class="event-card">
+            <div class="event-date"><div class="day">03</div><div class="month">Jul</div></div>
+            <div class="event-info">
+              <div class="e-title">Cousins' Meetup</div>
+              <div class="e-desc">Monthly gathering of cousins. Venue TBD based on preference poll.</div>
+              <div class="e-loc">&#128205; TBD</div>
+            </div>
+          </div>
+          <div class="event-card">
+            <div class="event-date"><div class="day">12</div><div class="month">Jul</div></div>
+            <div class="event-info">
+              <div class="e-title">Traditional Ceremony Planning</div>
+              <div class="e-desc">Planning meeting for the upcoming umgidi (coming of age ceremony).</div>
+              <div class="e-loc">&#128205; Family Home</div>
+            </div>
+          </div>
+          <div class="event-card">
+            <div class="event-date"><div class="day">20</div><div class="month">Aug</div></div>
+            <div class="event-info">
+              <div class="e-title">Elder's Appreciation Day</div>
+              <div class="e-desc">Special day to honour and appreciate the elders of the Kenosi family.</div>
+              <div class="e-loc">&#128205; Community Hall</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item" onclick="switchYaka('tree')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span>Tree</span></button>
+        <button class="nav-item active" onclick="switchYaka('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Events</span></button>
+        <button class="nav-item" onclick="switchYaka('rituals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Rituals</span></button>
+        <button class="nav-item" onclick="switchYaka('yprofile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></button>
+      </div>
+    </div>
+
+    <!-- Rituals -->
+    <div class="screen" id="screenRituals">
+      <div class="screen-content">
+        <div class="rituals-header">
+          <h2>Cultural Rituals</h2>
+          <p>Preserving our heritage, one tradition at a time</p>
+        </div>
+        <div class="rituals-grid">
+          <div class="ritual-card"><div class="r-icon">&#127872;</div><div class="r-name">Umgidi</div><div class="r-desc">Coming of age ceremony marking transition to adulthood</div></div>
+          <div class="ritual-card"><div class="r-icon">&#128142;</div><div class="r-name">Lobola</div><div class="r-desc">Traditional marriage negotiations and bride price ceremony</div></div>
+          <div class="ritual-card"><div class="r-icon">&#128736;</div><div class="r-name">Umkhehlo</div><div class="r-desc">Pre-wedding ceremony where families meet formally</div></div>
+          <div class="ritual-card"><div class="r-icon">&#127918;</div><div class="r-name">Imbeleko</div><div class="r-desc">Child introduction ceremony to ancestors and family</div></div>
+          <div class="ritual-card"><div class="r-icon">&#128329;</div><div class="r-name">Ukubuyisa</div><div class="r-desc">Bringing back the spirit of a departed loved one</div></div>
+          <div class="ritual-card"><div class="r-icon">&#127963;</div><div class="r-name">Umhlanganiso</div><div class="r-desc">Annual family gathering for unity and remembrance</div></div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item" onclick="switchYaka('tree')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span>Tree</span></button>
+        <button class="nav-item" onclick="switchYaka('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Events</span></button>
+        <button class="nav-item active" onclick="switchYaka('rituals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Rituals</span></button>
+        <button class="nav-item" onclick="switchYaka('yprofile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></button>
+      </div>
+    </div>
+
+    <!-- Yaka Profile -->
+    <div class="screen" id="screenYprofile">
+      <div class="screen-content">
+        <div class="yaka-profile-header">
+          <div class="yaka-profile-avatar">&#128102;</div>
+          <div class="yaka-profile-name">Gerald Kenosi</div>
+          <div class="yaka-profile-tier">&#9733; Premium Member</div>
+        </div>
+        <div class="yaka-profile-menu">
+          <div class="yaka-profile-item">
+            <div class="yp-icon">&#128100;</div>
+            <div class="yp-info"><div class="yp-title">My Profile</div><div class="yp-sub">Edit personal information</div></div>
+            <span class="yp-arrow">&rsaquo;</span>
+          </div>
+          <div class="yaka-profile-item">
+            <div class="yp-icon">&#128247;</div>
+            <div class="yp-info"><div class="yp-title">Family Photos</div><div class="yp-sub">24 photos &bull; Premium feature</div></div>
+            <span class="yp-arrow">&rsaquo;</span>
+          </div>
+          <div class="yaka-profile-item">
+            <div class="yp-icon">&#127908;</div>
+            <div class="yp-info"><div class="yp-title">Voice Notes</div><div class="yp-sub">Record family stories &bull; 3 saved</div></div>
+            <span class="yp-arrow">&rsaquo;</span>
+          </div>
+          <div class="yaka-profile-item">
+            <div class="yp-icon">&#128274;</div>
+            <div class="yp-info"><div class="yp-title">Privacy Settings</div><div class="yp-sub">Control who sees your tree</div></div>
+            <span class="yp-arrow">&rsaquo;</span>
+          </div>
+          <div class="yaka-profile-item" onclick="logoutYaka()">
+            <div class="yp-icon">&#128682;</div>
+            <div class="yp-info"><div class="yp-title">Sign Out</div><div class="yp-sub">Log out of your account</div></div>
+            <span class="yp-arrow">&rsaquo;</span>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item" onclick="switchYaka('tree')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span>Tree</span></button>
+        <button class="nav-item" onclick="switchYaka('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Events</span></button>
+        <button class="nav-item" onclick="switchYaka('rituals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Rituals</span></button>
+        <button class="nav-item active" onclick="switchYaka('yprofile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></button>
+      </div>
+    </div>
+
+    <div class="app-version">Family Yaka v1.2.0 &bull; Demo</div>
+  </div>
+  <div class="phone-indicator"></div>
+</div>
+
+<script>
+// Splash
+setTimeout(() => {
+  document.getElementById('splash').classList.add('fade-out');
+  setTimeout(() => {
+    document.getElementById('splash').style.display = 'none';
+    document.getElementById('onboarding').classList.add('show');
+  }, 600);
+}, 2600);
+
+// Onboarding data
+const slides = [
+  { icon: '&#127968;', title: 'Welcome to Family Yaka', desc: 'Build, explore, and preserve your family tree. Connect with relatives and discover your heritage.' },
+  { icon: '&#127775;', title: 'Discover Your Roots', desc: 'Trace your lineage back through generations. See how your family tree grows and connects.' },
+  { icon: '&#128101;', title: 'Connect with Family', desc: 'Invite relatives to join your tree. Collaborate on building your shared family history.' },
+  { icon: '&#128197;', title: 'Family Events', desc: 'Keep track of birthdays, anniversaries, reunions, and important family ceremonies.' },
+  { icon: '&#127908;', title: 'Record Stories', desc: 'Capture voice notes and stories from elders. Preserve family memories for future generations.' },
+  { icon: '&#127963;', title: 'Cultural Heritage', desc: 'Document rituals, traditions, and ceremonies. Keep your cultural heritage alive.' }
+];
+
+let currentSlide = 0;
+function updateSlide() {
+  const s = slides[currentSlide];
+  document.getElementById('onbIcon').innerHTML = s.icon;
+  document.getElementById('onbTitle').textContent = s.title;
+  document.getElementById('onbDesc').textContent = s.desc;
+  document.querySelectorAll('.onb-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+  const next = document.getElementById('onbNext');
+  const getStarted = document.getElementById('onbGetStarted');
+  if (currentSlide === slides.length - 1) {
+    next.style.display = 'none';
+    getStarted.classList.add('show');
+  } else {
+    next.style.display = 'block';
+    getStarted.classList.remove('show');
+  }
+}
+
+function nextOnboarding() {
+  if (currentSlide < slides.length - 1) {
+    currentSlide++;
+    updateSlide();
+  }
+}
+
+function skipOnboarding() {
+  goToAuth();
+}
+
+function goToAuth() {
+  document.getElementById('onboarding').classList.remove('show');
+  document.getElementById('authScreen').classList.add('show');
+}
+
+function authLogin() {
+  document.getElementById('authScreen').classList.remove('show');
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screenTree').classList.add('active');
+}
+
+// Screen switching
+function switchYaka(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById('screen' + name.charAt(0).toUpperCase() + name.slice(1));
+  if (target) target.classList.add('active');
+}
+
+function logoutYaka() {
+  if (confirm('Sign out of Family Yaka?')) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('authScreen').classList.add('show');
+  }
+}
+</script>
+</body>
+</html>
