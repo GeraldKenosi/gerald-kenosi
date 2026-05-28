@@ -6,30 +6,22 @@
 <title>Family Yaka — Mobile Demo</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden;padding:20px}
 
-/* Phone Frame */
-.phone{width:375px;height:812px;background:#000;border-radius:48px;padding:16px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 0 2px #333;overflow:hidden}
+.phone{width:375px;height:min(812px,calc(100vh - 40px));background:#000;border-radius:48px;padding:16px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 0 2px #333;overflow:hidden}
 .phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:150px;height:30px;background:#000;border-radius:0 0 18px 18px;z-index:100;display:flex;align-items:center;justify-content:center;gap:8px}
 .phone-notch .cam{width:10px;height:10px;border-radius:50%;background:#1a1a2e;border:2px solid #333}
 .phone-notch .speaker{width:50px;height:4px;border-radius:2px;background:#222}
-.phone-screen{width:100%;height:100%;border-radius:36px;overflow:hidden;background:#f5f5f5;position:relative}
-
-/* Phone bottom indicator */
+.phone-screen{width:100%;height:100%;border-radius:36px;overflow:hidden;background:var(--bg);position:relative}
 .phone-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(0,0,0,0.2);z-index:99}
 
-/* Family Yaka Colors */
 :root{--primary:#5D4037;--primary-light:#795548;--accent:#D4A574;--bg:#FFF8F0;--surface:#fff;--text:#3E2723;--text-muted:#8D6E63;--border:#EFEBE9;--radius:12px;--gold:#C89B3C}
 
-/* App */
-.app{width:100%;height:100%;border-radius:36px;overflow:hidden;display:flex;flex-direction:column;background:var(--bg);position:relative}
-
-/* Screens */
 .screen{display:none;flex-direction:column;height:100%;width:100%;position:absolute;top:0;left:0;background:var(--bg)}
 .screen.active{display:flex;z-index:10}
 .screen-content{flex:1;overflow-y:auto;padding:0 0 80px;-webkit-overflow-scrolling:touch}
 .screen-content::-webkit-scrollbar{width:3px}
-.screen-content::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px}
+.screen-content::-webkit-scrollbar-thumb{background:#D7CCC8;border-radius:2px}
 
 /* Splash */
 .splash{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:linear-gradient(160deg,#3E2723,#5D4037,#4E342E);position:absolute;top:0;left:0;right:0;bottom:0;z-index:100;transition:opacity .6s}
@@ -49,14 +41,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .onb-slide h2{font-size:24px;font-weight:700;color:var(--text);margin-bottom:12px;letter-spacing:-.3px}
 .onb-slide p{font-size:14px;color:var(--text-muted);line-height:1.7;max-width:300px}
 .onb-dots{display:flex;gap:8px;justify-content:center;padding:20px 0}
-.onb-dot{width:8px;height:8px;border-radius:50%;background:#ccc;transition:all .3s}
+.onb-dot{width:8px;height:8px;border-radius:50%;background:#D7CCC8;transition:all .3s}
 .onb-dot.active{width:28px;border-radius:4px;background:var(--accent)}
 .onb-nav{display:flex;justify-content:space-between;padding:0 32px 40px}
 .onb-nav button{padding:12px 24px;border-radius:10px;border:none;font-weight:600;font-size:14px;cursor:pointer;transition:transform .2s}
 .onb-nav button:active{transform:scale(0.97)}
 .onb-skip{background:transparent;color:var(--text-muted)}
 .onb-next{background:var(--primary);color:#fff}
-.onb-get-started{display:none;background:var(--accent);color:#fff;padding:12px 32px;border-radius:10px;border:none;font-weight:700;font-size:14px;cursor:pointer;margin:0 auto 40px;transition:transform .2s}
+.onb-get-started{display:none;background:var(--accent);color:#3E2723;padding:12px 32px;border-radius:10px;border:none;font-weight:700;font-size:14px;cursor:pointer;margin:0 auto 40px;transition:transform .2s}
 .onb-get-started:active{transform:scale(0.97)}
 .onb-get-started.show{display:block}
 
@@ -67,12 +59,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .auth-header .auth-icon{font-size:48px;margin-bottom:16px}
 .auth-header h2{font-size:24px;font-weight:700}
 .auth-header p{font-size:13px;opacity:.7;margin-top:4px}
-.auth-form{padding:0 32px 40px;flex:1}
+.auth-form{padding:0 32px 32px;flex:1;overflow-y:auto}
 .auth-field{width:100%;padding:14px 16px;border-radius:10px;border:none;background:rgba(255,255,255,0.1);color:#fff;font-size:14px;margin-bottom:12px;outline:none;transition:background .3s}
 .auth-field::placeholder{color:rgba(255,255,255,0.4)}
 .auth-field:focus{background:rgba(255,255,255,0.18)}
-.auth-btn{width:100%;padding:14px;border-radius:10px;border:none;background:var(--accent);color:#3E2723;font-size:15px;font-weight:700;cursor:pointer;transition:transform .2s;margin-top:8px}
+.auth-btn{width:100%;padding:14px;border-radius:10px;border:none;background:var(--accent);color:#3E2723;font-size:15px;font-weight:700;cursor:pointer;transition:transform .2s;margin-top:8px;position:relative}
 .auth-btn:active{transform:scale(0.97)}
+.auth-btn.loading{color:transparent}
+.auth-btn.loading::after{content:'';position:absolute;width:18px;height:18px;border:2px solid #3E2723;border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .auth-switch{text-align:center;margin-top:16px;color:rgba(255,255,255,0.6);font-size:13px}
 .auth-switch a{color:var(--accent);font-weight:600;cursor:pointer}
 .auth-creds{background:rgba(255,255,255,0.08);border-radius:8px;padding:10px 14px;margin-top:16px;width:100%;font-size:11px;color:rgba(255,255,255,0.55);text-align:center;line-height:1.6}
@@ -83,33 +78,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 12px;border-radius:8px;transition:background .3s;border:none;background:none;font-family:inherit}
 .nav-item svg{width:22px;height:22px;stroke:#999;fill:none;transition:stroke .3s}
 .nav-item span{font-size:10px;font-weight:600;color:#999;transition:color .3s}
-.nav-item.active svg{stroke:var(--primary)}.nav-item.active span{color:var(--primary)}
-.nav-item:hover{background:rgba(93,64,55,0.04)}
+.nav-item.active svg{stroke:var(--primary)}
+.nav-item.active span{color:var(--primary)}
 
-/* Tree Screen */
-.tree-header{background:linear-gradient(135deg,#5D4037,#3E2723);padding:48px 20px 20px;border-radius:0 0 24px 24px;color:#fff;text-align:center}
+/* Tree */
+.tree-header{background:linear-gradient(135deg,#5D4037,#3E2723);padding:48px 20px 16px;border-radius:0 0 24px 24px;color:#fff;text-align:center}
 .tree-header h2{font-size:20px;font-weight:700;margin-bottom:2px}
 .tree-header p{font-size:12px;opacity:.7}
 .tree-canvas{flex:1;padding:16px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.tree-svg{width:100%;height:300px}
-.tree-controls{display:flex;gap:8px;justify-content:center;padding:8px;position:absolute;bottom:80px;left:0;right:0;z-index:10}
-.tree-ctrl-btn{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.08);font-size:16px;color:var(--text);transition:transform .2s}
-.tree-ctrl-btn:active{transform:scale(0.92)}
+.tree-svg{width:100%;height:auto;max-height:300px}
 
-/* Tree Node */
-.tree-node{position:absolute;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;border:3px solid rgba(255,255,255,0.4);box-shadow:0 4px 12px rgba(0,0,0,0.15);cursor:pointer;transition:transform .3s}
-.tree-node:active{transform:scale(1.1)}
-.tree-node.male{background:#5C6BC0}
-.tree-node.female{background:#EC407A}
-.tree-label{position:absolute;font-size:9px;font-weight:600;color:var(--text-muted);text-align:center;width:80px;left:50%;transform:translateX(-50%)}
-.tree-connector{position:absolute;width:2px;background:#D7CCC8;z-index:0}
-
-/* Events Screen */
+/* Events */
 .events-header{background:linear-gradient(135deg,#5D4037,#3E2723);padding:48px 20px 20px;border-radius:0 0 24px 24px;color:#fff;display:flex;align-items:center;justify-content:space-between}
 .events-header h2{font-size:20px;font-weight:700}
 .events-header .add-event{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .events-list{padding:16px 20px}
-.event-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;display:flex;gap:14px;transition:transform .2s;cursor:default}
+.event-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;display:flex;gap:14px;cursor:pointer;transition:transform .2s}
 .event-card:active{transform:scale(0.98)}
 .event-date{text-align:center;min-width:48px}
 .event-date .day{font-size:20px;font-weight:700;color:var(--primary);line-height:1}
@@ -119,18 +103,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .event-info .e-desc{font-size:12px;color:var(--text-muted);margin-top:2px;line-height:1.5}
 .event-info .e-loc{font-size:11px;color:var(--text-muted);margin-top:4px;display:flex;align-items:center;gap:4px}
 
-/* Rituals Screen */
+/* Rituals */
 .rituals-header{background:linear-gradient(135deg,#5D4037,#3E2723);padding:48px 20px 20px;border-radius:0 0 24px 24px;color:#fff;text-align:center}
 .rituals-header h2{font-size:20px;font-weight:700;margin-bottom:2px}
 .rituals-header p{font-size:12px;opacity:.7}
 .rituals-grid{padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ritual-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;transition:transform .2s;cursor:default}
+.ritual-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:transform .2s}
 .ritual-card:active{transform:scale(0.97)}
 .ritual-card .r-icon{font-size:28px;margin-bottom:8px}
 .ritual-card .r-name{font-size:12px;font-weight:600;color:var(--text)}
 .ritual-card .r-desc{font-size:10px;color:var(--text-muted);margin-top:2px;line-height:1.4}
 
-/* Profile Screen (Yaka) */
+/* Profile (Yaka) */
 .yaka-profile-header{background:linear-gradient(135deg,#5D4037,#3E2723);padding:48px 20px 28px;border-radius:0 0 24px 24px;color:#fff;text-align:center}
 .yaka-profile-avatar{width:72px;height:72px;border-radius:50%;margin:0 auto 12px;border:3px solid rgba(212,165,116,0.4);display:flex;align-items:center;justify-content:center;font-size:32px}
 .yaka-profile-name{font-size:18px;font-weight:700}
@@ -142,14 +126,37 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .yaka-profile-item .yp-info{flex:1}
 .yaka-profile-item .yp-title{font-size:13px;font-weight:600;color:var(--text)}
 .yaka-profile-item .yp-sub{font-size:11px;color:var(--text-muted)}
-.yaka-profile-item .yp-arrow{color:#ccc;font-size:14px;font-weight:700}
+.yaka-profile-item .yp-arrow{color:#D7CCC8;font-size:14px;font-weight:700}
 
-/* App version */
-.app-version{position:absolute;bottom:80px;left:0;right:0;text-align:center;font-size:10px;color:#bbb;z-index:5}
+/* Modal */
+.modal-overlay{display:none;position:absolute;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal-card{background:#fff;border-radius:16px;padding:24px;width:300px;max-height:80%;overflow-y:auto}
+.modal-card h3{font-size:16px;margin-bottom:8px;color:var(--text)}
+.modal-card p{font-size:13px;color:var(--text-muted);margin-bottom:12px;line-height:1.6}
+.modal-card .btn-row{display:flex;gap:10px}
+.modal-card .btn-row button{flex:1;padding:10px;border-radius:8px;border:none;font-weight:600;font-size:13px;cursor:pointer;transition:transform .2s}
+.modal-card .btn-primary{background:var(--accent);color:#3E2723}
+.modal-card .btn-cancel{background:#EFEBE9;color:var(--text)}
+.modal-card .form-field{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);font-size:13px;margin-bottom:10px;outline:none;font-family:inherit}
+.modal-card .form-field:focus{border-color:var(--accent)}
+.modal-card .person-card{display:flex;align-items:center;gap:12px;padding:10px;background:#FFF8F0;border-radius:8px;margin-bottom:8px}
+.modal-card .person-card .p-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff}
+.modal-card .person-card .p-avatar.male{background:#5C6BC0}
+.modal-card .person-card .p-avatar.female{background:#EC407A}
+.modal-card .person-card .p-info{flex:1}
+.modal-card .person-card .p-name{font-size:13px;font-weight:600;color:var(--text)}
+.modal-card .person-card .p-relation{font-size:11px;color:var(--text-muted)}
+.modal-card .detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.modal-card .detail-row:last-child{border-bottom:none}
+.modal-card .detail-row .label{color:var(--text-muted)}
+.modal-card .detail-row .value{color:var(--text);font-weight:500}
+
+.app-version{position:absolute;bottom:80px;left:0;right:0;text-align:center;font-size:10px;color:#D7CCC8;z-index:5}
 
 @media(max-width:480px){
-  body{overflow:auto;padding:20px}
-  .phone{width:100%;max-width:375px;height:90vh;max-height:812px;border-radius:24px;padding:8px}
+  body{overflow:auto;padding:10px}
+  .phone{width:100%;max-width:375px;height:min(812px,calc(100vh - 20px));border-radius:24px;padding:8px}
   .phone-screen{border-radius:18px}
   .bottom-nav{border-radius:0 0 18px 18px}
 }
@@ -170,18 +177,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
     <!-- Onboarding -->
     <div class="onboarding" id="onboarding">
-      <div class="onb-slide" id="onbSlide">
+      <div class="onb-slide">
         <div class="onb-icon" id="onbIcon">&#127968;</div>
         <h2 id="onbTitle">Welcome to Family Yaka</h2>
         <p id="onbDesc">Build, explore, and preserve your family tree. Connect with relatives and discover your heritage.</p>
       </div>
       <div class="onb-dots" id="onbDots">
-        <span class="onb-dot active"></span>
-        <span class="onb-dot"></span>
-        <span class="onb-dot"></span>
-        <span class="onb-dot"></span>
-        <span class="onb-dot"></span>
-        <span class="onb-dot"></span>
+        <span class="onb-dot active"></span><span class="onb-dot"></span><span class="onb-dot"></span><span class="onb-dot"></span><span class="onb-dot"></span><span class="onb-dot"></span>
       </div>
       <div class="onb-nav">
         <button class="onb-skip" onclick="skipOnboarding()">Skip</button>
@@ -199,9 +201,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       </div>
       <div class="auth-form">
         <input class="auth-field" type="email" placeholder="Email address" id="authEmail" value="user@familyyaka.com">
-        <input class="auth-field" type="password" placeholder="Password" id="authPass" value="••••••••">
-        <button class="auth-btn" onclick="authLogin()">Sign In</button>
-        <div class="auth-switch">Don't have an account? <a onclick="alert('Registration form would open')">Register</a></div>
+        <input class="auth-field" type="password" placeholder="Password" id="authPass" value="demo123">
+        <button class="auth-btn" id="authBtn" onclick="authLogin()">Sign In</button>
+        <div class="auth-switch">Don't have an account? <a onclick="showModal('register')">Register</a></div>
         <div class="auth-creds"><strong>Demo Credentials:</strong><br>Email: user@familyyaka.com / Password: demo123</div>
       </div>
     </div>
@@ -215,7 +217,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         </div>
         <div class="tree-canvas">
           <svg class="tree-svg" viewBox="0 0 340 280">
-            <!-- Connection lines -->
             <line x1="170" y1="10" x2="170" y2="40" stroke="#D7CCC8" stroke-width="2"/>
             <line x1="170" y1="40" x2="170" y2="55" stroke="#D7CCC8" stroke-width="2"/>
             <line x1="170" y1="55" x2="120" y2="80" stroke="#D7CCC8" stroke-width="2"/>
@@ -231,52 +232,55 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
             <line x1="200" y1="105" x2="195" y2="130" stroke="#D7CCC8" stroke-width="2"/>
             <line x1="250" y1="105" x2="240" y2="130" stroke="#D7CCC8" stroke-width="2"/>
             <line x1="250" y1="105" x2="270" y2="130" stroke="#D7CCC8" stroke-width="2"/>
-            <!-- Nodes - Generation 1 -->
-            <circle cx="170" cy="10" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <!-- TS (Great-Grandfather) -->
+            <circle cx="170" cy="10" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','TS','Tshepo Kenosi','Great-Grandfather')" style="cursor:pointer"/>
             <text x="170" y="14" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">TS</text>
-            <!-- Nodes - Generation 2 -->
-            <circle cx="170" cy="40" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <!-- MK (Great-Grandmother) -->
+            <circle cx="170" cy="40" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','MK','Mmapula Kenosi','Great-Grandmother')" style="cursor:pointer"/>
             <text x="170" y="44" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">MK</text>
-            <!-- Nodes - Generation 3 -->
-            <circle cx="120" cy="80" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <!-- PK (Grandfather) -->
+            <circle cx="120" cy="80" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','PK','Pule Kenosi','Grandfather')" style="cursor:pointer"/>
             <text x="120" y="84" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">PK</text>
-            <circle cx="220" cy="80" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <!-- AK (Grandmother) -->
+            <circle cx="220" cy="80" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','AK','Amogelang Kenosi','Grandmother')" style="cursor:pointer"/>
             <text x="220" y="84" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">AK</text>
-            <!-- Nodes - Generation 4 -->
-            <circle cx="85" cy="105" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <!-- TK (Father) -->
+            <circle cx="85" cy="105" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','TK','Thuso Kenosi','Father')" style="cursor:pointer"/>
             <text x="85" y="109" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">TK</text>
-            <circle cx="155" cy="105" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <!-- LK (Mother) -->
+            <circle cx="155" cy="105" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','LK','Lerato Kenosi','Mother')" style="cursor:pointer"/>
             <text x="155" y="109" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">LK</text>
-            <circle cx="200" cy="105" r="14" fill="#FFC107" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"/>
+            <!-- GK (You!) -->
+            <circle cx="200" cy="105" r="14" fill="#FFC107" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" onclick="showModal('person','GK','Gerald Kenosi','You')" style="cursor:pointer"/>
             <text x="200" y="109" text-anchor="middle" fill="#3E2723" font-size="9" font-weight="700">GK</text>
-            <circle cx="250" cy="105" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <!-- MK (Uncle) -->
+            <circle cx="250" cy="105" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','MK2','Mokgadi Kenosi','Uncle')" style="cursor:pointer"/>
             <text x="250" y="109" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">MK</text>
-            <!-- Nodes - Generation 5 -->
-            <circle cx="70" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <!-- Gen 5 kids -->
+            <circle cx="70" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','AK2','Amo Kenosi','Cousin')" style="cursor:pointer"/>
             <text x="70" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">AK</text>
-            <circle cx="110" cy="130" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <circle cx="110" cy="130" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','BK','Bakang Kenosi','Cousin')" style="cursor:pointer"/>
             <text x="110" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">BK</text>
-            <circle cx="140" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <circle cx="140" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','KK','Karabo Kenosi','Sister')" style="cursor:pointer"/>
             <text x="140" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">KK</text>
-            <circle cx="175" cy="130" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <circle cx="175" cy="130" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','NK','Neo Kenosi','Brother')" style="cursor:pointer"/>
             <text x="175" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">NK</text>
-            <circle cx="195" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <circle cx="195" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','SK','Sesi Kenosi','Cousin')" style="cursor:pointer"/>
             <text x="195" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">SK</text>
-            <circle cx="240" cy="130" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <circle cx="240" cy="130" r="12" fill="#5C6BC0" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','JK','Johann Kenosi','Cousin')" style="cursor:pointer"/>
             <text x="240" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">JK</text>
-            <circle cx="270" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <circle cx="270" cy="130" r="12" fill="#EC407A" stroke="rgba(255,255,255,0.4)" stroke-width="2" onclick="showModal('person','DK','Dineo Kenosi','Cousin')" style="cursor:pointer"/>
             <text x="270" y="134" text-anchor="middle" fill="#fff" font-size="9" font-weight="700">DK</text>
-            <!-- Labels -->
             <text x="170" y="156" text-anchor="middle" fill="#8D6E63" font-size="8" font-weight="600">Great-Grandparents</text>
             <text x="170" y="166" text-anchor="middle" fill="#8D6E63" font-size="8" font-weight="600">Grandparents &bull; Parents &bull; You</text>
           </svg>
         </div>
       </div>
       <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchYaka('tree')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span>Tree</span></button>
-        <button class="nav-item" onclick="switchYaka('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Events</span></button>
-        <button class="nav-item" onclick="switchYaka('rituals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Rituals</span></button>
-        <button class="nav-item" onclick="switchYaka('yprofile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></button>
+        <button class="nav-item active" onclick="switchYaka('tree')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span>Tree</span></button>
+        <button class="nav-item" onclick="switchYaka('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Events</span></button>
+        <button class="nav-item" onclick="switchYaka('rituals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Rituals</span></button>
+        <button class="nav-item" onclick="switchYaka('yprofile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></button>
       </div>
     </div>
 
@@ -285,10 +289,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <div class="screen-content">
         <div class="events-header">
           <h2>Family Events</h2>
-          <button class="add-event" onclick="alert('Add Event')">+</button>
+          <button class="add-event" onclick="showModal('addEvent')">+</button>
         </div>
         <div class="events-list">
-          <div class="event-card">
+          <div class="event-card" onclick="showModal('eventDetail1')">
             <div class="event-date"><div class="day">15</div><div class="month">Jun</div></div>
             <div class="event-info">
               <div class="e-title">Kenosi Family Reunion</div>
@@ -296,7 +300,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
               <div class="e-loc">&#128205; Soweto, Johannesburg</div>
             </div>
           </div>
-          <div class="event-card">
+          <div class="event-card" onclick="showModal('eventDetail2')">
             <div class="event-date"><div class="day">22</div><div class="month">Jun</div></div>
             <div class="event-info">
               <div class="e-title">Grandmother's Memorial</div>
@@ -304,7 +308,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
               <div class="e-loc">&#128205; Avalon Cemetery</div>
             </div>
           </div>
-          <div class="event-card">
+          <div class="event-card" onclick="showModal('eventDetail3')">
             <div class="event-date"><div class="day">03</div><div class="month">Jul</div></div>
             <div class="event-info">
               <div class="e-title">Cousins' Meetup</div>
@@ -312,7 +316,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
               <div class="e-loc">&#128205; TBD</div>
             </div>
           </div>
-          <div class="event-card">
+          <div class="event-card" onclick="showModal('eventDetail4')">
             <div class="event-date"><div class="day">12</div><div class="month">Jul</div></div>
             <div class="event-info">
               <div class="e-title">Traditional Ceremony Planning</div>
@@ -320,7 +324,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
               <div class="e-loc">&#128205; Family Home</div>
             </div>
           </div>
-          <div class="event-card">
+          <div class="event-card" onclick="showModal('eventDetail5')">
             <div class="event-date"><div class="day">20</div><div class="month">Aug</div></div>
             <div class="event-info">
               <div class="e-title">Elder's Appreciation Day</div>
@@ -346,12 +350,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
           <p>Preserving our heritage, one tradition at a time</p>
         </div>
         <div class="rituals-grid">
-          <div class="ritual-card"><div class="r-icon">&#127872;</div><div class="r-name">Umgidi</div><div class="r-desc">Coming of age ceremony marking transition to adulthood</div></div>
-          <div class="ritual-card"><div class="r-icon">&#128142;</div><div class="r-name">Lobola</div><div class="r-desc">Traditional marriage negotiations and bride price ceremony</div></div>
-          <div class="ritual-card"><div class="r-icon">&#128736;</div><div class="r-name">Umkhehlo</div><div class="r-desc">Pre-wedding ceremony where families meet formally</div></div>
-          <div class="ritual-card"><div class="r-icon">&#127918;</div><div class="r-name">Imbeleko</div><div class="r-desc">Child introduction ceremony to ancestors and family</div></div>
-          <div class="ritual-card"><div class="r-icon">&#128329;</div><div class="r-name">Ukubuyisa</div><div class="r-desc">Bringing back the spirit of a departed loved one</div></div>
-          <div class="ritual-card"><div class="r-icon">&#127963;</div><div class="r-name">Umhlanganiso</div><div class="r-desc">Annual family gathering for unity and remembrance</div></div>
+          <div class="ritual-card" onclick="showModal('ritualUmgidi')"><div class="r-icon">&#127872;</div><div class="r-name">Umgidi</div><div class="r-desc">Coming of age ceremony marking transition to adulthood</div></div>
+          <div class="ritual-card" onclick="showModal('ritualLobola')"><div class="r-icon">&#128142;</div><div class="r-name">Lobola</div><div class="r-desc">Traditional marriage negotiations and bride price ceremony</div></div>
+          <div class="ritual-card" onclick="showModal('ritualUmkhehlo')"><div class="r-icon">&#128736;</div><div class="r-name">Umkhehlo</div><div class="r-desc">Pre-wedding ceremony where families meet formally</div></div>
+          <div class="ritual-card" onclick="showModal('ritualImbeleko')"><div class="r-icon">&#127918;</div><div class="r-name">Imbeleko</div><div class="r-desc">Child introduction ceremony to ancestors and family</div></div>
+          <div class="ritual-card" onclick="showModal('ritualUkubuyisa')"><div class="r-icon">&#128329;</div><div class="r-name">Ukubuyisa</div><div class="r-desc">Bringing back the spirit of a departed loved one</div></div>
+          <div class="ritual-card" onclick="showModal('ritualUmhlanganiso')"><div class="r-icon">&#127963;</div><div class="r-name">Umhlanganiso</div><div class="r-desc">Annual family gathering for unity and remembrance</div></div>
         </div>
       </div>
       <div class="bottom-nav">
@@ -371,24 +375,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
           <div class="yaka-profile-tier">&#9733; Premium Member</div>
         </div>
         <div class="yaka-profile-menu">
-          <div class="yaka-profile-item">
+          <div class="yaka-profile-item" onclick="showModal('editProfile')">
             <div class="yp-icon">&#128100;</div>
             <div class="yp-info"><div class="yp-title">My Profile</div><div class="yp-sub">Edit personal information</div></div>
             <span class="yp-arrow">&rsaquo;</span>
           </div>
-          <div class="yaka-profile-item">
+          <div class="yaka-profile-item" onclick="showModal('familyPhotos')">
             <div class="yp-icon">&#128247;</div>
             <div class="yp-info"><div class="yp-title">Family Photos</div><div class="yp-sub">24 photos &bull; Premium feature</div></div>
             <span class="yp-arrow">&rsaquo;</span>
           </div>
-          <div class="yaka-profile-item">
+          <div class="yaka-profile-item" onclick="showModal('voiceNotes')">
             <div class="yp-icon">&#127908;</div>
             <div class="yp-info"><div class="yp-title">Voice Notes</div><div class="yp-sub">Record family stories &bull; 3 saved</div></div>
             <span class="yp-arrow">&rsaquo;</span>
           </div>
-          <div class="yaka-profile-item">
+          <div class="yaka-profile-item" onclick="showModal('inviteFamily')">
+            <div class="yp-icon">&#128233;</div>
+            <div class="yp-info"><div class="yp-title">Invite Family</div><div class="yp-sub">Send invitation to relatives</div></div>
+            <span class="yp-arrow">&rsaquo;</span>
+          </div>
+          <div class="yaka-profile-item" onclick="showModal('privacy')">
             <div class="yp-icon">&#128274;</div>
             <div class="yp-info"><div class="yp-title">Privacy Settings</div><div class="yp-sub">Control who sees your tree</div></div>
+            <span class="yp-arrow">&rsaquo;</span>
+          </div>
+          <div class="yaka-profile-item" onclick="showModal('subscription')">
+            <div class="yp-icon">&#11088;</div>
+            <div class="yp-info"><div class="yp-title">Subscription</div><div class="yp-sub">Premium &bull; Manage plan</div></div>
             <span class="yp-arrow">&rsaquo;</span>
           </div>
           <div class="yaka-profile-item" onclick="logoutYaka()">
@@ -406,6 +420,165 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       </div>
     </div>
 
+    <!-- Modal overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal-card" id="modalContent">
+        <h3 id="modalTitle">Title</h3>
+        <div id="modalBody"><p>Content</p></div>
+        <div class="btn-row"><button class="btn-primary" onclick="hideModal()">Close</button></div>
+      </div>
+    </div>
+
+    <!-- Modal content templates -->
+    <div id="registerContent" style="display:none">
+      <p>Create your Family Yaka account:</p>
+      <input class="form-field" placeholder="Full name" value="Gerald Kenosi">
+      <input class="form-field" type="email" placeholder="Email" value="gerald@example.com">
+      <input class="form-field" type="password" placeholder="Password" value="••••••••">
+      <div class="btn-row"><button class="btn-primary" onclick="alert('Account created! Please sign in.');hideModal()">Create Account</button><button class="btn-cancel" onclick="hideModal()">Cancel</button></div>
+    </div>
+
+    <div id="addEventContent" style="display:none">
+      <p>Add a new family event:</p>
+      <input class="form-field" placeholder="Event name" value="Family Braai Day">
+      <input class="form-field" placeholder="Date" value="15 June 2026">
+      <input class="form-field" placeholder="Location" value="Family Home">
+      <div class="btn-row"><button class="btn-primary" onclick="alert('Event added to calendar!');hideModal()">Add Event</button><button class="btn-cancel" onclick="hideModal()">Cancel</button></div>
+    </div>
+
+    <div id="eventDetail1Content" style="display:none">
+      <p><strong>Kenosi Family Reunion</strong></p>
+      <div class="detail-row"><span class="label">Date</span><span class="value">15 June 2026</span></div>
+      <div class="detail-row"><span class="label">Time</span><span class="value">10:00 - 18:00</span></div>
+      <div class="detail-row"><span class="label">Location</span><span class="value">Soweto, Johannesburg</span></div>
+      <div class="detail-row"><span class="label">Attending</span><span class="value">18 confirmed</span></div>
+      <p style="margin-top:8px">Annual gathering at the family homestead. Bring a dish to share. Games, music, and storytelling for the children.</p>
+    </div>
+
+    <div id="eventDetail2Content" style="display:none">
+      <p><strong>Grandmother's Memorial</strong></p>
+      <div class="detail-row"><span class="label">Date</span><span class="value">22 June 2026</span></div>
+      <div class="detail-row"><span class="label">Time</span><span class="value">09:00 - 12:00</span></div>
+      <div class="detail-row"><span class="label">Location</span><span class="value">Avalon Cemetery</span></div>
+      <p style="margin-top:8px">Memorial service marking 5 years since grandmother's passing. All family members invited.</p>
+    </div>
+
+    <div id="eventDetail3Content" style="display:none">
+      <p><strong>Cousins' Meetup</strong></p>
+      <div class="detail-row"><span class="label">Date</span><span class="value">3 July 2026</span></div>
+      <div class="detail-row"><span class="label">Time</span><span class="value">14:00 onwards</span></div>
+      <div class="detail-row"><span class="label">Location</span><span class="value">TBD</span></div>
+      <p style="margin-top:8px">Monthly gathering of cousins. Venue to be decided based on preference poll.</p>
+    </div>
+
+    <div id="eventDetail4Content" style="display:none">
+      <p><strong>Traditional Ceremony Planning</strong></p>
+      <div class="detail-row"><span class="label">Date</span><span class="value">12 July 2026</span></div>
+      <div class="detail-row"><span class="label">Time</span><span class="value">10:00 - 16:00</span></div>
+      <div class="detail-row"><span class="label">Location</span><span class="value">Family Home</span></div>
+      <p style="margin-top:8px">Planning meeting for the upcoming umgidi (coming of age ceremony). All elders expected to attend.</p>
+    </div>
+
+    <div id="eventDetail5Content" style="display:none">
+      <p><strong>Elder's Appreciation Day</strong></p>
+      <div class="detail-row"><span class="label">Date</span><span class="value">20 August 2026</span></div>
+      <div class="detail-row"><span class="label">Time</span><span class="value">11:00 - 17:00</span></div>
+      <div class="detail-row"><span class="label">Location</span><span class="value">Community Hall</span></div>
+      <p style="margin-top:8px">Special day to honour and appreciate the elders of the Kenosi family. Speeches, gifts, and a shared meal.</p>
+    </div>
+
+    <div id="ritualUmgidiContent" style="display:none">
+      <p><strong>Umgidi — Coming of Age</strong></p>
+      <p>A traditional ceremony marking a young person's transition to adulthood. Involves community gatherings, mentorship from elders, ceremonial rites, and a celebratory feast. Typically held annually for all youth who have reached the appropriate age.</p>
+    </div>
+
+    <div id="ritualLobolaContent" style="display:none">
+      <p><strong>Lobola — Bride Price</strong></p>
+      <p>A formal negotiation process where the groom's family pays respect to the bride's family through cattle or monetary compensation. Symbolises the union of two families and the value placed on the bride. Negotiations are led by elders on both sides.</p>
+    </div>
+
+    <div id="ritualUmkhehloContent" style="display:none">
+      <p><strong>Umkhehlo — Pre-Wedding Ceremony</strong></p>
+      <p>A ceremonial introduction of the couple to both families before the wedding. The bride's family presents gifts and the groom's family formally asks for her hand. Includes traditional dancing, food, and speeches from both sides.</p>
+    </div>
+
+    <div id="ritualImbelekoContent" style="display:none">
+      <p><strong>Imbeleko — Child Introduction</strong></p>
+      <p>A ceremony to introduce a newborn child to the ancestors and the extended family. A goat or sheep is slaughtered, and the child is given a name. The ceremony is believed to protect the child and connect them to their lineage.</p>
+    </div>
+
+    <div id="ritualUkubuyisaContent" style="display:none">
+      <p><strong>Ukubuyisa — Spirit Return</strong></p>
+      <p>A ceremony performed to bring the spirit of a departed loved one back home. Usually held one year or more after the funeral. A beast is slaughtered, and the family welcomes the ancestor's spirit to watch over them.</p>
+    </div>
+
+    <div id="ritualUmhlanganisoContent" style="display:none">
+      <p><strong>Umhlanganiso — Family Gathering</strong></p>
+      <p>An annual family gathering for unity, remembrance, and cultural reaffirmation. Family members travel from near and far to reconnect, share news, and honour their shared heritage. Includes traditional food, music, and council meetings.</p>
+    </div>
+
+    <div id="personContent" style="display:none">
+      <div class="person-card">
+        <div class="p-avatar" id="personAvatar">GK</div>
+        <div class="p-info">
+          <div class="p-name" id="personName">Gerald Kenosi</div>
+          <div class="p-relation" id="personRelation">You</div>
+        </div>
+      </div>
+      <div class="detail-row"><span class="label">Status</span><span class="value" id="personStatus">Living</span></div>
+      <div class="detail-row"><span class="label">Generation</span><span class="value" id="personGen">4th</span></div>
+      <p style="margin-top:8px" id="personBio">Click a family member on the tree to see their profile.</p>
+    </div>
+
+    <div id="editProfileContent" style="display:none">
+      <p>Edit your profile information:</p>
+      <input class="form-field" placeholder="Full name" value="Gerald Kenosi">
+      <input class="form-field" placeholder="Date of birth" value="15 March 1995">
+      <select class="form-field" style="appearance:auto"><option>Male</option><option>Female</option></select>
+      <div class="btn-row"><button class="btn-primary" onclick="hideModal()">Save</button><button class="btn-cancel" onclick="hideModal()">Cancel</button></div>
+    </div>
+
+    <div id="familyPhotosContent" style="display:none">
+      <p><strong>24 photos</strong> in your family album</p>
+      <p>&#128247; Reunion 2025 — 8 photos</p>
+      <p>&#128247; Christmas 2025 — 12 photos</p>
+      <p>&#128247; Grandma's Birthday — 4 photos</p>
+      <p style="margin-top:8px;font-size:11px;color:var(--text-muted)">&#9733; Premium feature — Upload unlimited photos</p>
+    </div>
+
+    <div id="voiceNotesContent" style="display:none">
+      <p><strong>3 voice notes saved</strong></p>
+      <p>&#127908; Grandma's stories — 12:34</p>
+      <p>&#127908; Uncle's memories — 8:15</p>
+      <p>&#127908; Family history — 22:40</p>
+      <p style="margin-top:8px;font-size:11px;color:var(--text-muted)">&#9733; Premium feature — Record unlimited voice notes</p>
+    </div>
+
+    <div id="inviteFamilyContent" style="display:none">
+      <p>Invite a family member to join your tree:</p>
+      <input class="form-field" placeholder="Full name" value="">
+      <input class="form-field" type="email" placeholder="Email address" value="">
+      <select class="form-field" style="appearance:auto"><option>Parent</option><option>Sibling</option><option>Cousin</option><option>Grandparent</option><option>Other relative</option></select>
+      <div class="btn-row"><button class="btn-primary" onclick="alert('Invitation sent!');hideModal()">Send Invite</button><button class="btn-cancel" onclick="hideModal()">Cancel</button></div>
+    </div>
+
+    <div id="privacyContent" style="display:none">
+      <p><strong>Privacy Settings</strong></p>
+      <div class="detail-row"><span class="label">Tree Visibility</span><span class="value">Family Only</span></div>
+      <div class="detail-row"><span class="label">Profile Photos</span><span class="value">Family Only</span></div>
+      <div class="detail-row"><span class="label">Contact Info</span><span class="value">Hidden</span></div>
+      <div class="detail-row"><span class="label">Events</span><span class="value">Family Only</span></div>
+    </div>
+
+    <div id="subscriptionContent" style="display:none">
+      <p><strong>Current Plan: Premium</strong></p>
+      <p>&#10003; Unlimited family tree size</p>
+      <p>&#10003; Voice notes &amp; photos</p>
+      <p>&#10003; Advanced privacy controls</p>
+      <p>&#10003; Priority support</p>
+      <p style="margin-top:8px;font-size:11px;color:var(--text-muted)">Renews on 15 August 2026</p>
+    </div>
+
     <div class="app-version">Family Yaka v1.2.0 &bull; Demo</div>
   </div>
   <div class="phone-indicator"></div>
@@ -421,7 +594,7 @@ setTimeout(() => {
   }, 600);
 }, 2600);
 
-// Onboarding data
+// Onboarding
 const slides = [
   { icon: '&#127968;', title: 'Welcome to Family Yaka', desc: 'Build, explore, and preserve your family tree. Connect with relatives and discover your heritage.' },
   { icon: '&#127775;', title: 'Discover Your Roots', desc: 'Trace your lineage back through generations. See how your family tree grows and connects.' },
@@ -439,36 +612,34 @@ function updateSlide() {
   document.getElementById('onbDesc').textContent = s.desc;
   document.querySelectorAll('.onb-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
   const next = document.getElementById('onbNext');
-  const getStarted = document.getElementById('onbGetStarted');
+  const gs = document.getElementById('onbGetStarted');
   if (currentSlide === slides.length - 1) {
     next.style.display = 'none';
-    getStarted.classList.add('show');
+    gs.classList.add('show');
   } else {
     next.style.display = 'block';
-    getStarted.classList.remove('show');
+    gs.classList.remove('show');
   }
 }
-
-function nextOnboarding() {
-  if (currentSlide < slides.length - 1) {
-    currentSlide++;
-    updateSlide();
-  }
-}
-
-function skipOnboarding() {
-  goToAuth();
-}
-
+function nextOnboarding() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlide(); } }
+function skipOnboarding() { goToAuth(); }
 function goToAuth() {
   document.getElementById('onboarding').classList.remove('show');
   document.getElementById('authScreen').classList.add('show');
 }
 
+// Auth login with loading
 function authLogin() {
-  document.getElementById('authScreen').classList.remove('show');
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screenTree').classList.add('active');
+  const btn = document.getElementById('authBtn');
+  btn.classList.add('loading');
+  btn.textContent = '';
+  setTimeout(() => {
+    btn.classList.remove('loading');
+    btn.textContent = 'Sign In';
+    document.getElementById('authScreen').classList.remove('show');
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screenTree').classList.add('active');
+  }, 1200);
 }
 
 // Screen switching
@@ -478,12 +649,69 @@ function switchYaka(name) {
   if (target) target.classList.add('active');
 }
 
-function logoutYaka() {
-  if (confirm('Sign out of Family Yaka?')) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('authScreen').classList.add('show');
+// Modal system
+function showModal(type, initials, name, relation) {
+  const overlay = document.getElementById('modalOverlay');
+  const titleEl = document.getElementById('modalTitle');
+  const body = document.getElementById('modalBody');
+  const titles = {
+    register: 'Create Account',
+    addEvent: 'Add Family Event',
+    eventDetail1: 'Event Details',
+    eventDetail2: 'Event Details',
+    eventDetail3: 'Event Details',
+    eventDetail4: 'Event Details',
+    eventDetail5: 'Event Details',
+    ritualUmgidi: 'Umgidi',
+    ritualLobola: 'Lobola',
+    ritualUmkhehlo: 'Umkhehlo',
+    ritualImbeleko: 'Imbeleko',
+    ritualUkubuyisa: 'Ukubuyisa',
+    ritualUmhlanganiso: 'Umhlanganiso',
+    person: name || 'Family Member',
+    editProfile: 'Edit Profile',
+    familyPhotos: 'Family Photos',
+    voiceNotes: 'Voice Notes',
+    inviteFamily: 'Invite Family Member',
+    privacy: 'Privacy Settings',
+    subscription: 'Subscription'
+  };
+  titleEl.innerHTML = titles[type] || 'Details';
+  const content = document.getElementById(type + 'Content');
+  if (content) {
+    body.innerHTML = content.innerHTML;
+    if (type === 'person' && initials && name && relation) {
+      const avatar = body.querySelector('#personAvatar');
+      const nameEl = body.querySelector('#personName');
+      const relEl = body.querySelector('#personRelation');
+      if (avatar) {
+        avatar.textContent = initials;
+        avatar.className = 'p-avatar';
+        const isMale = ['TS','PK','TK','GK','BK','NK','JK','MK','MK2'].includes(initials);
+        avatar.classList.add(isMale ? 'male' : 'female');
+      }
+      if (nameEl) nameEl.textContent = name;
+      if (relEl) relEl.textContent = relation;
+    }
+  } else {
+    body.innerHTML = '<p>Information loading...</p>';
   }
+  overlay.classList.add('show');
 }
+
+function hideModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+function logoutYaka() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('authScreen').classList.add('show');
+}
+
+// Close modal on overlay click
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) hideModal();
+});
 </script>
 </body>
 </html>

@@ -6,36 +6,24 @@
 <title>SALSO Workforce — Mobile Demo</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden;padding:20px}
 
-/* Phone Frame */
-.phone{width:375px;height:812px;background:#000;border-radius:48px;padding:16px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 0 2px #333;overflow:hidden}
+.phone{width:375px;height:min(812px,calc(100vh - 40px));background:#000;border-radius:48px;padding:16px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 0 2px #333;overflow:hidden}
 .phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:150px;height:30px;background:#000;border-radius:0 0 18px 18px;z-index:100;display:flex;align-items:center;justify-content:center;gap:8px}
 .phone-notch .cam{width:10px;height:10px;border-radius:50%;background:#1a1a2e;border:2px solid #333}
 .phone-notch .speaker{width:50px;height:4px;border-radius:2px;background:#222}
 .phone-screen{width:100%;height:100%;border-radius:36px;overflow:hidden;background:#f5f5f5;position:relative}
-
-/* Phone bottom indicator */
 .phone-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(0,0,0,0.2);z-index:99}
 
-/* Status Bar */
-.status-bar{display:flex;justify-content:space-between;padding:12px 24px 8px;font-size:12px;font-weight:600;color:#fff;position:absolute;top:0;left:0;right:0;z-index:50}
-.status-bar.light{color:#000}
+:root{--primary:#1565C0;--primary-light:#1976D2;--accent:#E53935;--surface:#fff;--bg:#f0f2f5;--text:#1a1a2e;--text-muted:#666;--border:#eee;--radius:12px}
 
-/* App Container */
-.app{width:100%;height:100%;border-radius:36px;overflow:hidden;display:flex;flex-direction:column;background:#f5f5f5;position:relative}
-
-/* Screens */
 .screen{display:none;flex-direction:column;height:100%;width:100%;position:absolute;top:0;left:0;background:#f5f5f5}
 .screen.active{display:flex;z-index:10}
 .screen-content{flex:1;overflow-y:auto;padding:0 0 80px;-webkit-overflow-scrolling:touch}
 .screen-content::-webkit-scrollbar{width:3px}
 .screen-content::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px}
 
-/* SALSO Colors */
-:root{--primary:#1565C0;--primary-light:#1976D2;--accent:#E53935;--surface:#fff;--bg:#f0f2f5;--text:#1a1a2e;--text-muted:#666;--border:#eee;--radius:12px}
-
-/* Splash Screen */
+/* Splash */
 .splash-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg,#1565C0,#1976D2,#0D47A1);position:absolute;top:0;left:0;right:0;bottom:0;z-index:100;transition:opacity .5s}
 .splash-screen.fade-out{opacity:0;pointer-events:none}
 .splash-logo{width:80px;height:80px;background:rgba(255,255,255,0.15);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;backdrop-filter:blur(10px)}
@@ -55,8 +43,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .login-field{width:100%;padding:14px 16px;border-radius:10px;border:none;background:rgba(255,255,255,0.12);color:#fff;font-size:14px;margin-bottom:12px;outline:none;transition:background .3s}
 .login-field::placeholder{color:rgba(255,255,255,0.45)}
 .login-field:focus{background:rgba(255,255,255,0.2)}
-.login-btn{width:100%;padding:14px;border-radius:10px;border:none;background:#fff;color:#1565C0;font-size:15px;font-weight:700;cursor:pointer;transition:transform .2s;margin-top:8px}
+.login-btn{width:100%;padding:14px;border-radius:10px;border:none;background:#fff;color:#1565C0;font-size:15px;font-weight:700;cursor:pointer;transition:transform .2s;margin-top:8px;position:relative}
 .login-btn:active{transform:scale(0.97)}
+.login-btn.loading{color:transparent}
+.login-btn.loading::after{content:'';position:absolute;width:18px;height:18px;border:2px solid #1565C0;border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .login-google{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .3s}
 .login-google:hover{background:rgba(255,255,255,0.08)}
 .login-creds{background:rgba(255,255,255,0.08);border-radius:8px;padding:10px 14px;margin-top:20px;width:100%;font-size:11px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.6}
@@ -69,13 +60,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .nav-item span{font-size:10px;font-weight:600;color:#999;transition:color .3s}
 .nav-item.active svg{stroke:#1565C0}
 .nav-item.active span{color:#1565C0}
-.nav-item:hover{background:rgba(21,101,192,0.04)}
 
-/* Home Screen */
+/* Home */
 .home-header{background:linear-gradient(135deg,#1565C0,#0D47A1);padding:48px 20px 24px;border-radius:0 0 24px 24px;color:#fff}
 .home-greeting{font-size:14px;opacity:.8;margin-bottom:2px}
 .home-name{font-size:20px;font-weight:700}
-.home-balance{background:rgba(255,255,255,0.12);border-radius:12px;padding:14px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(10px)}
+.home-balance{background:rgba(255,255,255,0.12);border-radius:12px;padding:14px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(10px);cursor:pointer}
+.home-balance:active{background:rgba(255,255,255,0.18)}
 .home-balance div{display:flex;flex-direction:column}
 .home-balance .label{font-size:10px;opacity:.7}
 .home-balance .value{font-size:18px;font-weight:700}
@@ -92,7 +83,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .home-section{padding:0 20px;margin-top:8px}
 .home-section-title{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
 .home-section-title .more{font-size:11px;color:var(--primary);font-weight:600;cursor:pointer}
-.kpi-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:transform .2s;cursor:default}
+.kpi-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform .2s}
 .kpi-card:active{transform:scale(0.98)}
 .kpi-card .kpi-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .kpi-card .kpi-icon svg{width:20px;height:20px}
@@ -101,12 +92,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .kpi-card .kpi-value{font-size:16px;font-weight:700}
 .kpi-card .kpi-change{font-size:11px;font-weight:600;margin-left:auto}
 
-/* Attendance Screen */
+/* Attendance */
 .att-header{background:#1565C0;padding:48px 20px 24px;border-radius:0 0 24px 24px;color:#fff;text-align:center}
 .att-time{font-size:36px;font-weight:200;margin-bottom:4px}
 .att-date{font-size:13px;opacity:.7;margin-bottom:20px}
 .att-clock-btn{width:80px;height:80px;border-radius:50%;border:3px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.12);color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all .3s;margin:0 auto 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-.att-clock-btn.checked{border-color:#4CAF50;background:rgba(76,175,80,0.2);color:#fff}
+.att-clock-btn.checked{border-color:#4CAF50;background:rgba(76,175,80,0.2)}
 .att-clock-btn span{font-size:20px;font-weight:700}
 .att-stats{display:flex;gap:10px;padding:16px 20px}
 .att-stat{flex:1;background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
@@ -119,7 +110,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .att-location .loc-name{font-size:13px;font-weight:600}
 .att-location .loc-addr{font-size:11px;color:var(--text-muted)}
 
-/* Reports Screen */
+/* Reports */
 .reports-header{background:#fff;padding:48px 20px 16px;border-bottom:1px solid var(--border)}
 .reports-header h2{font-size:20px;font-weight:700;margin-bottom:4px}
 .reports-header p{font-size:12px;color:var(--text-muted)}
@@ -134,7 +125,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .report-item .r-date{font-size:11px;color:var(--text-muted)}
 .report-item .r-arrow{color:#ccc;font-size:16px}
 
-/* SOPs Screen */
+/* SOPs */
 .sops-header{background:#fff;padding:48px 20px 16px;border-bottom:1px solid var(--border)}
 .sops-header h2{font-size:20px;font-weight:700;margin-bottom:4px}
 .sops-header p{font-size:12px;color:var(--text-muted)}
@@ -148,7 +139,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .sop-item .sop-title{font-size:13px;font-weight:600}
 .sop-item .sop-size{font-size:11px;color:var(--text-muted)}
 
-/* Profile Screen */
+/* Profile */
 .profile-header{background:linear-gradient(135deg,#1565C0,#0D47A1);padding:56px 20px 28px;border-radius:0 0 24px 24px;color:#fff;text-align:center}
 .profile-avatar{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.2);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;border:3px solid rgba(255,255,255,0.3)}
 .profile-name{font-size:18px;font-weight:700}
@@ -166,11 +157,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .ed-screen{background:#f0f2f5}
 .ed-header{background:linear-gradient(135deg,#1565C0,#0D47A1);padding:48px 20px 20px;border-radius:0 0 24px 24px;color:#fff;display:flex;align-items:center;gap:12px}
 .ed-header .back-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}
-.ed-header .ed-info{flex:1}
 .ed-header .ed-title{font-size:18px;font-weight:700}
 .ed-header .ed-sub{font-size:11px;opacity:.7}
 .ed-metrics{padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ed-metric{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+.ed-metric{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:transform .2s}
+.ed-metric:active{transform:scale(0.97)}
 .ed-metric .ed-val{font-size:24px;font-weight:700;color:var(--primary)}
 .ed-metric .ed-lbl{font-size:11px;color:var(--text-muted);margin-top:2px}
 .ed-metric .ed-trend{font-size:10px;font-weight:600;margin-top:4px}
@@ -178,7 +169,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .ed-metric .ed-trend.down{color:#E53935}
 .ed-section{padding:0 20px 16px}
 .ed-section-title{font-size:14px;font-weight:700;margin-bottom:10px}
-.ed-governance{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px}
+.ed-governance{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:transform .2s}
+.ed-governance:active{transform:scale(0.98)}
 .ed-governance .g-title{font-size:13px;font-weight:600;margin-bottom:4px}
 .ed-governance .g-desc{font-size:11px;color:var(--text-muted);line-height:1.5}
 
@@ -186,30 +178,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .fab{position:absolute;bottom:84px;right:20px;width:52px;height:52px;border-radius:50%;background:#E53935;color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 16px rgba(229,57,53,0.35);display:flex;align-items:center;justify-content:center;z-index:40;transition:transform .2s}
 .fab:active{transform:scale(0.92)}
 
-/* Scrollable content padding for bottom nav */
-.has-nav{padding-bottom:80px}
-
-/* Toolbar at top of each main screen */
-.toolbar{display:flex;align-items:center;justify-content:space-between;padding:48px 20px 12px;background:#fff;border-bottom:1px solid var(--border)}
-.toolbar h2{font-size:18px;font-weight:700}
-.toolbar .tb-action{background:none;border:none;color:var(--primary);font-size:13px;font-weight:600;cursor:pointer;padding:4px 8px}
+/* Logout overlay */
+.logout-overlay,.modal-overlay{display:none;position:absolute;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center}
+.logout-overlay.show,.modal-overlay.show{display:flex}
+.modal-card,.logout-card{background:#fff;border-radius:16px;padding:24px;width:300px;max-height:80%;overflow-y:auto}
+.modal-card h3,.logout-card h3{font-size:16px;margin-bottom:8px}
+.modal-card p,.logout-card p{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6}
+.modal-card .btn-row,.logout-card .btn-row{display:flex;gap:10px}
+.modal-card .btn-row button,.logout-card .btn-row button{flex:1;padding:10px;border-radius:8px;border:none;font-weight:600;font-size:13px;cursor:pointer;transition:transform .2s}
+.modal-card .btn-cancel,.logout-card .btn-cancel{background:var(--bg);color:var(--text)}
+.modal-card .btn-confirm,.logout-card .btn-confirm{background:#E53935;color:#fff}
+.modal-card .btn-primary{background:var(--primary);color:#fff}
+.modal-card .form-field{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);font-size:13px;margin-bottom:10px;outline:none;font-family:inherit}
+.modal-card .form-field:focus{border-color:var(--primary)}
+.modal-card .doc-preview{background:var(--bg);border-radius:8px;padding:16px;margin-bottom:12px;font-size:12px;color:var(--text-muted);line-height:1.7;max-height:200px;overflow-y:auto}
+.modal-card .doc-preview h4{font-size:13px;color:var(--text);margin-bottom:6px}
+.modal-card .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;margin:2px}
+.modal-card .tag.blue{background:#E3F2FD;color:#1565C0}
+.modal-card .tag.green{background:#E8F5E9;color:#2E7D32}
+.modal-card .tag.red{background:#FFEBEE;color:#E53935}
 
 .app-version{position:absolute;bottom:80px;left:0;right:0;text-align:center;font-size:10px;color:#bbb;z-index:5}
 
-/* Logout overlay */
-.logout-overlay{display:none;position:absolute;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center}
-.logout-overlay.show{display:flex}
-.logout-card{background:#fff;border-radius:16px;padding:24px;width:280px;text-align:center}
-.logout-card h3{font-size:16px;margin-bottom:8px}
-.logout-card p{font-size:13px;color:var(--text-muted);margin-bottom:20px}
-.logout-card .btn-row{display:flex;gap:10px}
-.logout-card .btn-row button{flex:1;padding:10px;border-radius:8px;border:none;font-weight:600;font-size:13px;cursor:pointer;transition:transform .2s}
-.logout-card .btn-cancel{background:var(--bg);color:var(--text)}
-.logout-card .btn-confirm{background:#E53935;color:#fff}
-
 @media(max-width:480px){
-  body{overflow:auto;padding:20px}
-  .phone{width:100%;max-width:375px;height:90vh;max-height:812px;border-radius:24px;padding:8px}
+  body{overflow:auto;padding:10px}
+  .phone{width:100%;max-width:375px;height:min(812px,calc(100vh - 20px));border-radius:24px;padding:8px}
   .phone-screen{border-radius:18px}
   .bottom-nav{border-radius:0 0 18px 18px}
 }
@@ -222,9 +215,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="phone-screen">
     <!-- Splash -->
     <div class="splash-screen" id="splash">
-      <div class="splash-logo">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
+      <div class="splash-logo"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
       <div class="splash-title">SALSO Workforce</div>
       <div class="splash-sub">Workforce Management</div>
       <div class="splash-loader"><div class="splash-loader-inner"></div></div>
@@ -232,14 +223,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
     <!-- Login -->
     <div class="login-screen" id="loginScreen">
-      <div class="login-logo">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
+      <div class="login-logo"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
       <div class="login-title">SALSO Workforce</div>
       <div class="login-sub">Sign in to your account</div>
       <input class="login-field" type="email" placeholder="Email address" id="loginEmail" value="admin@salso.org.za">
-      <input class="login-field" type="password" placeholder="Password" id="loginPass" value="••••••••">
-      <button class="login-btn" onclick="login()">Sign In</button>
+      <input class="login-field" type="password" placeholder="Password" id="loginPass" value="admin123">
+      <button class="login-btn" id="loginBtn" onclick="login()">Sign In</button>
       <button class="login-google"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continue with Google</button>
       <div class="login-creds"><strong>Demo Credentials:</strong><br>Email: admin@salso.org.za / Password: admin123</div>
     </div>
@@ -248,9 +237,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div class="screen active" id="screenHome">
       <div class="screen-content">
         <div class="home-header">
-          <div class="home-greeting">Good morning,</div>
+          <div class="home-greeting" id="greeting">Good morning,</div>
           <div class="home-name">Gerald Kenosi</div>
-          <div class="home-balance">
+          <div class="home-balance" onclick="showModal('staffModal')">
             <div><span class="label">Total Staff</span><span class="value">124</span></div>
             <div><span class="label">On Duty</span><span class="value">87</span></div>
             <span class="badge">&#9733; Admin</span>
@@ -258,40 +247,40 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         </div>
         <div class="home-actions">
           <div class="home-action" onclick="switchScreen('attendance')">
-            <div class="icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div class="icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
             <div class="label">Attendance</div>
           </div>
           <div class="home-action" onclick="switchScreen('reports')">
-            <div class="icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
             <div class="label">Reports</div>
           </div>
           <div class="home-action" onclick="showEDDashboard()">
-            <div class="icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+            <div class="icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
             <div class="label">Dashboard</div>
           </div>
           <div class="home-action" onclick="switchScreen('sops')">
-            <div class="icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+            <div class="icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
             <div class="label">SOPs</div>
           </div>
         </div>
         <div class="home-section">
           <div class="home-section-title">KPI Overview <span class="more" onclick="showEDDashboard()">View All &rarr;</span></div>
-          <div class="kpi-card">
+          <div class="kpi-card" onclick="showModal('staffModal')">
             <div class="kpi-icon" style="background:#E3F2FD;color:#1565C0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
             <div class="kpi-info"><div class="kpi-label">Total Volunteers</div><div class="kpi-value">98</div></div>
             <div class="kpi-change" style="color:#2E7D32">+12%</div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" onclick="showModal('hoursModal')">
             <div class="kpi-icon" style="background:#FFF3E0;color:#E65100"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
             <div class="kpi-info"><div class="kpi-label">Hours This Month</div><div class="kpi-value">1,247</div></div>
             <div class="kpi-change" style="color:#2E7D32">+8%</div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" onclick="showModal('tasksModal')">
             <div class="kpi-icon" style="background:#E8F5E9;color:#2E7D32"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             <div class="kpi-info"><div class="kpi-label">Completed Tasks</div><div class="kpi-value">43</div></div>
             <div class="kpi-change" style="color:#2E7D32">+23%</div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card" onclick="showModal('leaveModal')">
             <div class="kpi-icon" style="background:#FCE4EC;color:#E53935"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
             <div class="kpi-info"><div class="kpi-label">Leave Requests</div><div class="kpi-value">7</div></div>
             <div class="kpi-change" style="color:#E53935">Pending</div>
@@ -299,11 +288,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         </div>
       </div>
       <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></button>
-        <button class="nav-item" onclick="switchScreen('attendance')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Attendance</span></button>
-        <button class="nav-item" onclick="switchScreen('reports')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Reports</span></button>
-        <button class="nav-item" onclick="switchScreen('sops')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>SOPs</span></button>
-        <button class="nav-item" onclick="switchScreen('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></button>
+        <button class="nav-item active" onclick="switchScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></button>
+        <button class="nav-item" onclick="switchScreen('attendance')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Attendance</span></button>
+        <button class="nav-item" onclick="switchScreen('reports')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Reports</span></button>
+        <button class="nav-item" onclick="switchScreen('sops')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>SOPs</span></button>
+        <button class="nav-item" onclick="switchScreen('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></button>
       </div>
     </div>
 
@@ -313,10 +302,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         <div class="att-header">
           <div class="att-time" id="attTime">08:42</div>
           <div class="att-date" id="attDate">Monday, 28 May 2026</div>
-          <button class="att-clock-btn" id="clockBtn" onclick="toggleClock()">
-            <span id="clockIcon">&#9654;</span>
-            <span id="clockLabel">Clock In</span>
-          </button>
+          <button class="att-clock-btn" id="clockBtn" onclick="toggleClock()"><span id="clockIcon">&#9654;</span><span id="clockLabel">Clock In</span></button>
         </div>
         <div class="att-stats">
           <div class="att-stat"><div class="val">6h 42m</div><div class="lbl">Today</div></div>
@@ -332,11 +318,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         </div>
         <div class="att-section">
           <div class="att-section-title">Recent Activity</div>
-          <div class="kpi-card" style="margin-bottom:6px">
+          <div class="kpi-card" style="cursor:default;margin-bottom:6px">
             <div class="kpi-icon" style="background:#E8F5E9;color:#2E7D32"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div class="kpi-info"><div class="kpi-value" style="font-size:13px">Clock In</div><div class="kpi-label">Today, 08:15 AM</div></div>
           </div>
-          <div class="kpi-card" style="margin-bottom:6px">
+          <div class="kpi-card" style="cursor:default;margin-bottom:6px">
             <div class="kpi-icon" style="background:#FFF3E0;color:#E65100"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
             <div class="kpi-info"><div class="kpi-value" style="font-size:13px">GPS Tracked</div><div class="kpi-label">Location verified</div></div>
           </div>
@@ -354,45 +340,42 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <!-- Reports -->
     <div class="screen" id="screenReports">
       <div class="screen-content">
-        <div class="reports-header">
-          <h2>Reports</h2>
-          <p>View and manage operational reports</p>
-        </div>
-        <div class="reports-search"><input type="text" placeholder="Search reports..." value=""></div>
+        <div class="reports-header"><h2>Reports</h2><p>View and manage operational reports</p></div>
+        <div class="reports-search"><input type="text" placeholder="Search reports..."></div>
         <div class="reports-list">
-          <div class="report-item">
+          <div class="report-item" onclick="showModal('reportDetail')">
             <div class="r-icon" style="background:#1565C0">AR</div>
             <div class="r-info"><div class="r-title">Activity Report</div><div class="r-date">May 2026</div></div>
             <span class="r-arrow">&rsaquo;</span>
           </div>
-          <div class="report-item">
+          <div class="report-item" onclick="showModal('reportDetail')">
             <div class="r-icon" style="background:#E53935">AT</div>
             <div class="r-info"><div class="r-title">Attendance Summary</div><div class="r-date">Week 21, 2026</div></div>
             <span class="r-arrow">&rsaquo;</span>
           </div>
-          <div class="report-item">
+          <div class="report-item" onclick="showModal('reportDetail')">
             <div class="r-icon" style="background:#2E7D32">FI</div>
             <div class="r-info"><div class="r-title">Financial Overview</div><div class="r-date">Q2 2026</div></div>
             <span class="r-arrow">&rsaquo;</span>
           </div>
-          <div class="report-item">
+          <div class="report-item" onclick="showModal('reportDetail')">
             <div class="r-icon" style="background:#E65100">KP</div>
             <div class="r-info"><div class="r-title">KPI Dashboard</div><div class="r-date">Monthly Report</div></div>
             <span class="r-arrow">&rsaquo;</span>
           </div>
-          <div class="report-item">
+          <div class="report-item" onclick="showModal('reportDetail')">
             <div class="r-icon" style="background:#6A1B9A">VO</div>
             <div class="r-info"><div class="r-title">Volunteer Hours</div><div class="r-date">May 2026</div></div>
             <span class="r-arrow">&rsaquo;</span>
           </div>
-          <div class="report-item">
+          <div class="report-item" onclick="showModal('reportDetail')">
             <div class="r-icon" style="background:#00838F">LV</div>
             <div class="r-info"><div class="r-title">Leave &amp; Absence</div><div class="r-date">May 2026</div></div>
             <span class="r-arrow">&rsaquo;</span>
           </div>
         </div>
       </div>
-      <button class="fab" onclick="alert('Create New Report')">+</button>
+      <button class="fab" onclick="showModal('createReport')">+</button>
       <div class="bottom-nav">
         <button class="nav-item" onclick="switchScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></button>
         <button class="nav-item" onclick="switchScreen('attendance')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Attendance</span></button>
@@ -405,33 +388,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <!-- SOPs -->
     <div class="screen" id="screenSops">
       <div class="screen-content">
-        <div class="sops-header">
-          <h2>SOPs &amp; Policies</h2>
-          <p>Standard operating procedures and guidelines</p>
-        </div>
-        <div class="sops-search"><input type="text" placeholder="Search documents..." value=""></div>
+        <div class="sops-header"><h2>SOPs &amp; Policies</h2><p>Standard operating procedures and guidelines</p></div>
+        <div class="sops-search"><input type="text" placeholder="Search documents..."></div>
         <div class="sops-list">
-          <div class="sop-item">
+          <div class="sop-item" onclick="showModal('sopDetail')">
             <div class="sop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
             <div class="sop-info"><div class="sop-title">Volunteer Code of Conduct</div><div class="sop-size">PDF &bull; 1.2 MB</div></div>
           </div>
-          <div class="sop-item">
+          <div class="sop-item" onclick="showModal('sopDetail')">
             <div class="sop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
             <div class="sop-info"><div class="sop-title">Attendance &amp; Timesheet Policy</div><div class="sop-size">PDF &bull; 856 KB</div></div>
           </div>
-          <div class="sop-item">
+          <div class="sop-item" onclick="showModal('sopDetail')">
             <div class="sop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
             <div class="sop-info"><div class="sop-title">Safety &amp; Emergency Procedures</div><div class="sop-size">PDF &bull; 2.4 MB</div></div>
           </div>
-          <div class="sop-item">
+          <div class="sop-item" onclick="showModal('sopDetail')">
             <div class="sop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
             <div class="sop-info"><div class="sop-title">Data Privacy &amp; Confidentiality</div><div class="sop-size">PDF &bull; 1.1 MB</div></div>
           </div>
-          <div class="sop-item">
+          <div class="sop-item" onclick="showModal('sopDetail')">
             <div class="sop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
             <div class="sop-info"><div class="sop-title">Financial &amp; Expense Policy</div><div class="sop-size">PDF &bull; 1.8 MB</div></div>
           </div>
-          <div class="sop-item">
+          <div class="sop-item" onclick="showModal('sopDetail')">
             <div class="sop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
             <div class="sop-info"><div class="sop-title">IT &amp; Device Usage Policy</div><div class="sop-size">PDF &bull; 728 KB</div></div>
           </div>
@@ -455,22 +435,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
           <div class="profile-role">Administrator &bull; Volunteer</div>
         </div>
         <div class="profile-menu">
-          <div class="profile-item">
+          <div class="profile-item" onclick="showModal('myDocs')">
             <div class="p-icon" style="background:#E3F2FD;color:#1565C0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
             <div class="p-info"><div class="p-title">My Documents</div><div class="p-sub">Certificates, ID, contracts</div></div>
             <span class="p-arrow">&rsaquo;</span>
           </div>
-          <div class="profile-item">
+          <div class="profile-item" onclick="showModal('mySchedule')">
             <div class="p-icon" style="background:#FFF3E0;color:#E65100"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
             <div class="p-info"><div class="p-title">My Schedule</div><div class="p-sub">Upcoming shifts &amp; events</div></div>
             <span class="p-arrow">&rsaquo;</span>
           </div>
-          <div class="profile-item">
+          <div class="profile-item" onclick="showModal('training')">
             <div class="p-icon" style="background:#E8F5E9;color:#2E7D32"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             <div class="p-info"><div class="p-title">Training &amp; Resources</div><div class="p-sub">Learning materials &amp; guides</div></div>
             <span class="p-arrow">&rsaquo;</span>
           </div>
-          <div class="profile-item">
+          <div class="profile-item" onclick="showModal('notifications')">
             <div class="p-icon" style="background:#FCE4EC;color:#E53935"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
             <div class="p-info"><div class="p-title">Notifications</div><div class="p-sub">3 unread alerts</div></div>
             <span class="p-arrow">&rsaquo;</span>
@@ -496,34 +476,127 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <div class="screen-content">
         <div class="ed-header">
           <button class="back-btn" onclick="switchScreen('home')">&larr;</button>
-          <div class="ed-info"><div class="ed-title">ED Dashboard</div><div class="ed-sub">Executive overview</div></div>
+          <div><div class="ed-title">ED Dashboard</div><div class="ed-sub">Executive overview</div></div>
         </div>
         <div class="ed-metrics">
-          <div class="ed-metric"><div class="ed-val">124</div><div class="ed-lbl">Total Staff</div><div class="ed-trend up">&uarr; 12 from last month</div></div>
-          <div class="ed-metric"><div class="ed-val">87</div><div class="ed-lbl">Currently Active</div><div class="ed-trend up">&uarr; 70% occupancy</div></div>
+          <div class="ed-metric" onclick="showModal('staffModal')"><div class="ed-val">124</div><div class="ed-lbl">Total Staff</div><div class="ed-trend up">&uarr; 12 from last month</div></div>
+          <div class="ed-metric" onclick="showModal('staffModal')"><div class="ed-val">87</div><div class="ed-lbl">Currently Active</div><div class="ed-trend up">&uarr; 70% occupancy</div></div>
           <div class="ed-metric"><div class="ed-val">1,247</div><div class="ed-lbl">Hours This Month</div><div class="ed-trend up">&uarr; 8% increase</div></div>
           <div class="ed-metric"><div class="ed-val">R284K</div><div class="ed-lbl">Monthly Payroll</div><div class="ed-trend down">&darr; 3% decrease</div></div>
         </div>
         <div class="ed-section">
           <div class="ed-section-title">Governance &amp; Compliance</div>
-          <div class="ed-governance">
-            <div class="g-title">Compliance Status</div>
-            <div class="g-desc">All staff documents verified. 3 pending background checks. Board report due next week.</div>
-          </div>
-          <div class="ed-governance">
-            <div class="g-title">Programme Delivery</div>
-            <div class="g-desc">4 active programmes, 23 ongoing projects. 87% delivery rate for Q2 2026.</div>
-          </div>
-          <div class="ed-governance">
-            <div class="g-title">Risk Register</div>
-            <div class="g-desc">5 low-risk items, 2 medium-risk items requiring attention. No high-risk items.</div>
-          </div>
-          <div class="ed-governance">
-            <div class="g-title">Financial Summary</div>
-            <div class="g-desc">Q2 budget utilisation at 62%. Under budget by R42K. Annual audit scheduled for July.</div>
-          </div>
+          <div class="ed-governance"><div class="g-title">Compliance Status</div><div class="g-desc">All staff documents verified. 3 pending background checks. Board report due next week.</div></div>
+          <div class="ed-governance"><div class="g-title">Programme Delivery</div><div class="g-desc">4 active programmes, 23 ongoing projects. 87% delivery rate for Q2 2026.</div></div>
+          <div class="ed-governance"><div class="g-title">Risk Register</div><div class="g-desc">5 low-risk items, 2 medium-risk items requiring attention. No high-risk items.</div></div>
+          <div class="ed-governance"><div class="g-title">Financial Summary</div><div class="g-desc">Q2 budget utilisation at 62%. Under budget by R42K. Annual audit scheduled for July.</div></div>
         </div>
       </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal-card" id="modalContent">
+        <h3 id="modalTitle">Title</h3>
+        <div id="modalBody"><p>Content</p></div>
+        <div class="btn-row"><button class="btn-primary" onclick="hideModal()">Close</button></div>
+      </div>
+    </div>
+
+    <!-- Report detail modal content (hidden, cloned by JS) -->
+    <div id="reportDetailContent" style="display:none">
+      <p><strong>Report Type:</strong> Activity Report</p>
+      <p><strong>Period:</strong> May 2026</p>
+      <p><strong>Status:</strong> <span class="tag green">Completed</span></p>
+      <p><strong>Prepared by:</strong> Gerald Kenosi</p>
+      <p style="margin-top:8px">This report summarizes all volunteer activities for May 2026. Total of 1,247 hours logged across 4 programmes. 43 tasks completed. 3 new volunteers onboarded.</p>
+    </div>
+
+    <div id="createReportContent" style="display:none">
+      <p>Create a new operational report:</p>
+      <input class="form-field" placeholder="Report title" value="Monthly Activity Report">
+      <select class="form-field" style="appearance:auto"><option>Activity Report</option><option>Attendance Summary</option><option>Financial Overview</option><option>KPI Dashboard</option><option>Volunteer Hours</option></select>
+      <textarea class="form-field" placeholder="Description" rows="3" style="resize:none">Summary of activities for the reporting period.</textarea>
+      <div class="btn-row"><button class="btn-primary" onclick="alert('Report submitted for review');hideModal()">Submit</button><button class="btn-cancel" onclick="hideModal()">Cancel</button></div>
+    </div>
+
+    <div id="sopDetailContent" style="display:none">
+      <div class="doc-preview">
+        <h4>Volunteer Code of Conduct</h4>
+        <p>1. All volunteers must conduct themselves professionally at all times.</p>
+        <p>2. Confidentiality of beneficiary information is paramount.</p>
+        <p>3. Report any incidents to your supervisor within 24 hours.</p>
+        <p>4. Sign in and out for every shift using the attendance system.</p>
+        <p>5. Wear your SALSO identification badge at all times.</p>
+        <p>6. Follow the chain of command for all operational matters.</p>
+        <p>7. Zero tolerance for discrimination, harassment, or substance abuse.</p>
+      </div>
+      <div class="btn-row"><button class="btn-primary" onclick="alert('Downloading PDF...');hideModal()">Download PDF</button><button class="btn-cancel" onclick="hideModal()">Close</button></div>
+    </div>
+
+    <div id="staffModalContent" style="display:none">
+      <p><strong>Total Staff:</strong> 124</p>
+      <p><strong>Currently On Duty:</strong> 87 (70%)</p>
+      <p><strong>On Leave:</strong> 12</p>
+      <p><strong>Off Duty:</strong> 25</p>
+      <p style="margin-top:8px;font-size:11px;color:var(--text-muted)">Staff distribution: 98 Volunteers, 15 Coordinators, 8 Managers, 3 Executives</p>
+    </div>
+
+    <div id="hoursModalContent" style="display:none">
+      <p><strong>Total Hours This Month:</strong> 1,247</p>
+      <p><strong>This Week:</strong> 284 hours</p>
+      <p><strong>Today:</strong> 42 hours (logged so far)</p>
+      <p><strong>Average per Volunteer:</strong> 12.7 hours/month</p>
+      <p style="margin-top:8px;font-size:11px;color:var(--text-muted)">8% increase from last month. Programme delivery on track.</p>
+    </div>
+
+    <div id="tasksModalContent" style="display:none">
+      <p><strong>Completed Tasks:</strong> 43</p>
+      <p><strong>In Progress:</strong> 18</p>
+      <p><strong>Pending:</strong> 12</p>
+      <p><strong>Overdue:</strong> 3</p>
+      <p style="margin-top:8px;font-size:11px;color:var(--text-muted)">Completion rate: 78%. Average turnaround: 2.3 days.</p>
+    </div>
+
+    <div id="leaveModalContent" style="display:none">
+      <p><strong>Pending Leave Requests:</strong> 7</p>
+      <p><strong>Approved This Month:</strong> 12</p>
+      <p><strong>Rejected:</strong> 2</p>
+      <p style="margin-top:8px"><span class="tag blue">3 Annual Leave</span> <span class="tag green">2 Sick Leave</span> <span class="tag red">1 Urgent</span></p>
+    </div>
+
+    <div id="myDocsContent" style="display:none">
+      <div class="doc-preview">
+        <p>&#128196; <strong>ID Document</strong> — Verified</p>
+        <p>&#128196; <strong>Police Clearance</strong> — Valid until Dec 2026</p>
+        <p>&#128196; <strong>Volunteer Agreement</strong> — Signed 15 Jan 2025</p>
+        <p>&#128196; <strong>Code of Conduct</strong> — Acknowledged</p>
+        <p>&#128196; <strong>Training Certificate</strong> — Safeguarding Level 1</p>
+      </div>
+    </div>
+
+    <div id="myScheduleContent" style="display:none">
+      <p><strong>Today:</strong> 08:00 - 16:00 (Office)</p>
+      <p><strong>Tomorrow:</strong> 09:00 - 15:00 (Field Visit)</p>
+      <p><strong>Wed:</strong> 08:00 - 16:00 (Office)</p>
+      <p><strong>Thu:</strong> 10:00 - 14:00 (Training)</p>
+      <p><strong>Fri:</strong> 08:00 - 13:00 (Remote)</p>
+    </div>
+
+    <div id="trainingContent" style="display:none">
+      <p><strong>Completed:</strong></p>
+      <p>&#10003; Safeguarding Level 1 — Mar 2025</p>
+      <p>&#10003; First Aid Certificate — Jan 2026</p>
+      <p>&#10003; Data Protection Training — Feb 2026</p>
+      <p style="margin-top:8px"><strong>In Progress:</strong></p>
+      <p>&#9654; Leadership Development — 60% complete</p>
+      <p>&#9654; Project Management Basics — 30% complete</p>
+    </div>
+
+    <div id="notificationsContent" style="display:none">
+      <p>&#128276; <strong>Staff Meeting</strong> — Tomorrow 09:00</p>
+      <p>&#128276; <strong>Leave Request</strong> — 3 new requests pending review</p>
+      <p>&#128276; <strong>Training Reminder</strong> — Safeguarding refresher due in 2 weeks</p>
     </div>
 
     <!-- Logout Overlay -->
@@ -547,19 +620,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 // Splash to login
 setTimeout(() => {
   document.getElementById('splash').classList.add('fade-out');
-  setTimeout(() => {
-    document.getElementById('splash').style.display = 'none';
-  }, 500);
+  setTimeout(() => document.getElementById('splash').style.display = 'none', 500);
 }, 2200);
 
-// Login
+// Login with loading state
 function login() {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('screenHome').classList.add('active');
-  document.querySelectorAll('.screen').forEach(s => s.style.position = 'absolute');
+  const btn = document.getElementById('loginBtn');
+  btn.classList.add('loading');
+  btn.textContent = '';
+  setTimeout(() => {
+    btn.classList.remove('loading');
+    btn.textContent = 'Sign In';
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('screenHome').classList.add('active');
+    document.querySelectorAll('.screen').forEach(s => s.style.position = 'absolute');
+    updateGreeting();
+  }, 1200);
 }
 
-// Screen switching
+function updateGreeting() {
+  const h = new Date().getHours();
+  const g = document.getElementById('greeting');
+  if (h < 12) g.textContent = 'Good morning,';
+  else if (h < 18) g.textContent = 'Good afternoon,';
+  else g.textContent = 'Good evening,';
+}
+
 function switchScreen(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const target = document.getElementById('screen' + name.charAt(0).toUpperCase() + name.slice(1));
@@ -571,7 +657,36 @@ function showEDDashboard() {
   document.getElementById('screenEd').classList.add('active');
 }
 
-// Attendance clock
+// Modal system
+function showModal(type) {
+  const overlay = document.getElementById('modalOverlay');
+  const title = document.getElementById('modalTitle');
+  const body = document.getElementById('modalBody');
+  const titles = {
+    reportDetail: 'Activity Report &mdash; May 2026',
+    createReport: 'Create New Report',
+    sopDetail: 'Volunteer Code of Conduct',
+    staffModal: 'Staff Overview',
+    hoursModal: 'Hours Summary',
+    tasksModal: 'Task Management',
+    leaveModal: 'Leave Requests',
+    myDocs: 'My Documents',
+    mySchedule: 'My Schedule',
+    training: 'Training & Resources',
+    notifications: 'Notifications'
+  };
+  title.innerHTML = titles[type] || 'Details';
+  const content = document.getElementById(type + 'Content');
+  if (content) body.innerHTML = content.innerHTML;
+  else body.innerHTML = '<p>Loading...</p>';
+  overlay.classList.add('show');
+}
+
+function hideModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+// Clock
 let clockedIn = false;
 function toggleClock() {
   clockedIn = !clockedIn;
@@ -589,33 +704,33 @@ function toggleClock() {
   }
 }
 
-// Update time
 function updateTime() {
   const now = new Date();
-  const h = String(now.getHours()).padStart(2, '0');
-  const m = String(now.getMinutes()).padStart(2, '0');
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
   const el = document.getElementById('attTime');
   if (el) el.textContent = h + ':' + m;
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const dateEl = document.getElementById('attDate');
-  if (dateEl) dateEl.textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+  const de = document.getElementById('attDate');
+  if (de) de.textContent = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
 }
 updateTime();
 setInterval(updateTime, 30000);
 
 // Logout
-function showLogout() {
-  document.getElementById('logoutOverlay').classList.add('show');
-}
-function hideLogout() {
-  document.getElementById('logoutOverlay').classList.remove('show');
-}
+function showLogout() { document.getElementById('logoutOverlay').classList.add('show'); }
+function hideLogout() { document.getElementById('logoutOverlay').classList.remove('show'); }
 function logout() {
   document.getElementById('logoutOverlay').classList.remove('show');
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('loginScreen').style.display = 'flex';
 }
+
+// Close modals on click outside
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) hideModal();
+});
 </script>
 </body>
 </html>
